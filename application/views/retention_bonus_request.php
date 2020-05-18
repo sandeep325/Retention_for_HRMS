@@ -123,10 +123,13 @@ if($false_msg!="")
           
           echo "<td style='text-transform: capitalize;'>".$rows->purpose_of_visit."</td>";
           ?>
-         <td><i class="fa fa-check" style="color:green;font-size:28px;"></i></td>
-        <td><a href="#"><i class="fa fa-upload" style="color:blue;font-size:28px;"></i></a></td>
+         <td><i class="fa fa-check text-success fa-2x" data-toggle='tooltip' title='emp approve by team leader'></i></td> 
+          <td>
+          <a href="<?php echo base_url().'Retention/hrupload/'.$rows->emp_id;?>"><i class="fa fa-upload text-primary fa-2x" data-toggle='tooltip' title='upload greement'></i></a>
+        </td>
+      
         <?php  echo  "<td>".$rows->remark."</td>"; ?>
-        <td><a href="#"><i class="fa fa-eye" style="font-size:28px; color:green;"></i></a></td>
+        <td><a <?php if($rows->agreement_upload){?> href="<?php echo base_url("HrUploaded_agreements/".$rows->agreement_upload);  }?>" target="_blank"><i class="fa fa-eye text-success fa-2x"  data-toggle='tooltip' title='View emp agreement'></i></a></td>
         </tr>  
           <?php
           $i++;
@@ -143,4 +146,4 @@ if($false_msg!="")
    </form>
 </div>
 </body>
-</html>
+</html> 

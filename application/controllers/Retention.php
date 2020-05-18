@@ -1,6 +1,29 @@
 <?php
 class  Retention extends CI_Controller
 {
+
+public function EmpRetention($empid)
+{
+
+ $data_emp = callAPI('POST',base_url('api/Myapi/RetentionGetData/'.$empid),0);
+            $result['data']=json_decode($data_emp); 
+                 // print_r($result);die;
+               $this->load->view('apply_retention',$result);
+
+
+                  $ids=$result['data'];  
+               foreach($ids as $row)
+                     {
+                               
+                               $empid = $row->indo_code;
+                              
+
+                $this->session->set_userdata('empid',$empid);
+                }
+   // echo $ses_retention_empid;
+}
+
+
 public function Emp_apply()
 	{
 	     
@@ -50,27 +73,29 @@ public function Emp_apply()
 			{
 			
 				  // redirect("Retention/emp_view?msg=success");
+                $ses_retention_empid=$this->session->userdata('empid');
 				
 				 $this->session->set_flashdata('msg','You are apply  successfully');
-                redirect(base_url().'Retention/Emp_apply');
+                // redirect(base_url().'Retention/EmpRetention');
+                 redirect("Retention/EmpRetention/$ses_retention_empid");
+
 				
 			}
 			else
 			{
 	
 				// redirect("Retention/emp_view?msg=unsuccess");
-
+                $ses_retention_empid=$this->session->userdata('empid');
+              
 				 $this->session->set_flashdata('msgf','You are already apply for retention.');
-                redirect(base_url().'Retention/Emp_apply');
+                // redirect(base_url().'Retention/EmpRetention');
+                 redirect("Retention/EmpRetention/$ses_retention_empid");
+
 			}
 
 
 		}
-		else
-		{
-
-			$this->load->view('apply_retention');
-	    }
+	
 	}
 
 
@@ -113,8 +138,9 @@ public function Emp_apply()
              // echo $empid;
 	        // print_r($result); die;
 	     	 $this->load->view('tl_edit_apply_form',$result);
-	     
-	     }
+
+        }
+        
 
 
 
@@ -269,9 +295,15 @@ public function Emp_apply()
 
 		 $data_user = callAPI('POST',base_url('api/Myapi/HrApprovalData'),0);
           $result['data']=json_decode($data_user); 
-          //print_r($result); die;
+          // print_r($result); die;
 	   $this->load->view('retention_bonus_request',$result);
 	}
+
+public function hrupload($empupload_id)
+{
+  $this->load->view('Hrupload_document');
+}
+
 
 
 public function HrEmpApproval()
@@ -332,6 +364,9 @@ public function HrEmpApproval()
       redirect(base_url().'Retention/Retention_request');	
      }
 }
+
+
+
 
 
 
@@ -507,7 +542,7 @@ public function HrEmpApproval()
 	  {
         $emp_Payment= callAPI('POST',base_url('api/Myapi/GetEmpsPayments'),0);
              $result['data']=json_decode($emp_Payment); 
-             // print_r($result);Hr die;
+             // print_r($result); die;
 
 		$this->load->view('emp_payment_list',$result);
 	   }
@@ -519,25 +554,38 @@ public function HrPayments_accept()
    {
    if($this->input->post('Accept'))
    {
+
     $ids=$this->input->post('ids');
     // print_r($ids);
-    for($i=0; $i<sizeof($ids); $i++)
+    if($id)
     {
-      $uni_ids=$ids[$i];
-      // print_r($uni_ids);
+                 for($i=0; $i<sizeof($ids); $i++)
+                    {
+                     $uni_ids=$ids[$i];
+                     // print_r($uni_ids);
 
-       $emp_Uids = callAPI('POST',base_url('/api/Myapi/Empstatus/'.$uni_ids),0);
-    }
-          $result=json_decode($emp_Uids);
-         if($result>0)
-         {
-           redirect("Retention/Payment_list?msg=success");
-         }
-         else
-         {
-           redirect("Retention/Payment_list?msg=unsuccess");
+                       $emp_Uids = callAPI('POST',base_url('/api/Myapi/Empstatus/'.$uni_ids),0);
+                     }
+                       $result=json_decode($emp_Uids);
+                if($result>0)
+                  {
+                 $this->session->set_flashdata('true_msg','Payment request accept successfully.');
+                    redirect("Retention/Payment_list");
+                     }
+                else
+                 {
+                    $this->session->set_flashdata('false_msg','try again');
+          
+                  redirect("Retention/Payment_list");
 
-         }
+                  }
+
+        }
+        else
+        {
+            $this->session->set_flashdata('hr_accept_btn','Please select the employees.');
+         redirect(base_url().'Retention/Payment_list');
+        }
 
 
    }

@@ -165,9 +165,9 @@ if($approve_btn!="")
     echo "<td>"."</td>"; //this td fill 3rd installment claim date
 
   echo "<td>";
-      $time = strtotime($final_date2);
-  $final_date3 = date("Y-m-d", strtotime("+6 month", $time));
-   echo $final_date3;
+      $time = strtotime($final_date3);
+  $final_date4 = date("Y-m-d", strtotime("+6 month", $time));
+   echo $final_date4;
  echo"</td>";
 
     echo "<td>"."</td>";

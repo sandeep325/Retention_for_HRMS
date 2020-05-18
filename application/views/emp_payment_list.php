@@ -24,6 +24,30 @@
 	</ul>
 	</div>
 </nav>
+<?php   $true_msg=$this->session->flashdata('true_msg');
+        $false_msg=$this->session->flashdata('false_msg');
+        $hr_accept_btn=$this->session->flashdata('hr_accept_btn');
+
+
+  if ($true_msg !="")
+  {
+    echo "<center>";
+    echo "<div class=' mt-2 alert alert-success alert-dismissible fade show w-50 p-3'> <button type='button' class='close' data-dismiss='alert'>&times;</button>$true_msg</div>";
+    echo "</center>";
+  }
+  if($false_msg!="")
+  {
+    echo "<center>";
+    echo "<div  class=' mt-2 alert alert-danger alert-dismissible fade show w-50 p-3'><button type='button' class='close' data-dismiss='alert'>&times;</button>$false_msg</div>";
+   echo "</center>";
+  }
+  if($hr_accept_btn!="")
+{ ?>
+   <script>
+  alert('<?php echo $hr_accept_btn; ?>');
+ window.open('Payment_list','_self');
+</script>
+<?php } ?>
 <div class="container  mt-3">
   <h5 class="text-center" style="text-decoration: underline;">List of Employees payments</h5>
 	
@@ -37,10 +61,10 @@
             <th scope="col">Emp&nbsp;Name</th>
             <th scope="col"> Training&nbsp;&nbsp;name </th>
             <th scope="col">Installment amount(INR)</th>
-            <th scope="col">1st Installment</th>
-            <th scope="col">2nd Installment</th>
-            <th scope="col">3rd Installment</th>
-            <th scope="col">4th Installment</th>
+            <th scope="col"> &nbsp;1st &nbsp;Installment&nbsp;</th>
+            <th scope="col">&nbsp;2nd &nbsp;Installment&nbsp;</th>
+            <th scope="col">&nbsp;3rd &nbsp;Installment&nbsp;</th>
+            <th scope="col">&nbsp;4th &nbsp;Installment&nbsp;</th>
             <th scope="col">View Attachments</th>
             <th scope="col"> Remark </th>
              <th scope="col">Status</th>
@@ -56,7 +80,8 @@
     ?>
     <td>
               <div class="custom-control custom-checkbox">
-                  <input type="checkbox" name= "ids[]" class="custom-control-input" id="<?php echo $id=$rows->id;?>" value="<?php echo $id;?>" />
+                  <input type="checkbox" name= "ids[]" class="custom-control-input" id="<?php echo $id=$rows->id;?>" value="<?php echo $id;?>" 
+                      <?php   $status=$rows->status; if($status!=""){echo 'checked disabled';}?> />
                   <label class="custom-control-label" for="<?php echo $id=$rows->id;?>"><?php echo $i;?></label>
               </div>
             </td>
@@ -65,14 +90,48 @@
     echo "<td style='text-transform: capitalize;'>".$rows->emp_name."</td>";
     echo "<td style='text-transform: capitalize;'>".$rows->training_name."</td>";
     echo "<td style='text-transform: capitalize;'>".$rows->installment_amount."</td>";
-    echo"<td> </td>";
-    echo"<td> </td>";
-    echo"<td> </td>";
-    echo"<td> </td>";
-    ?>
-      <td><a href="<?php echo base_url("TrainingDoc/".$rows->training_document);?>" target="_blank"><i class="fa fa-paperclip text-success fa-2x"></i></a>&nbsp;<a href="<?php echo base_url("EpApproval_files/".$rows->ep_approval);?>" target="blank"><i class="fa fa-paperclip text-success fa-2x"></i></a>&nbsp;<a href="<?php echo base_url("Other_doc/".$rows->other_doc);?>" target="blank"><i class="fa fa-paperclip text-success fa-2x"></i></a></td>
-              
+    $fstdate=$rows->return_date;
+          $date = strtotime($fstdate);
+  $fst_installment = date("Y-m-d", strtotime("+6 month", $date));
+
+  echo "<td> <lable data-toggle='tooltip'  title='Due date'>".$fst_installment."<br></lable>/<lable data-toggle='tooltip' title='claim date'>YY-mm-dd</lable> </td>";
+
+   $date= strtotime($fst_installment);
+   $sec_installment=date("Y-m-d",strtotime("+6month",$date));
+  echo "<td>  <lable data-toggle='tooltip'  title='Due date'>".$sec_installment."<br></lable>/<lable data-toggle='tooltip' title='claim date'>YY-mm-dd</lable> </td>";
+
+$date=strtotime($sec_installment);
+$third_installment= date("Y-m-d",strtotime("+6month",$date));
+echo "<td> <lable data-toggle='tooltip'  title='Due date'>".$third_installment."<br></lable>/<lable data-toggle='tooltip' title='claim date'>YY-mm-dd</lable> </td>";
+
+$date=strtotime($third_installment);
+$fourth_installment=date("Y-m-d",strtotime("+6month",$date));
+echo "<td>  <lable data-toggle='tooltip'  title='Due date'>".$fourth_installment."<br></lable>/<lable data-toggle='tooltip' title='claim date'>YY-mm-dd</lable> </td>";
+  ?>
+    
+    
+      <td>
+        <a  <?php if($rows->training_document){?> href="<?php echo base_url("TrainingDoc/".$rows->training_document); }?>" data-toggle="tooltip"  title="Training document" target="_blank"><i class="fa fa-paperclip text-success fa-2x"></i></a>&nbsp;
+        <a <?php if($rows->ep_approval){?> href="<?php echo base_url("EpApproval_files/".$rows->ep_approval); }?>" data-toggle="tooltip" title="Ep Approval" target="blank"><i class="fa fa-paperclip text-success fa-2x"></i></a>&nbsp;
+        <a <?php if($rows->other_doc){?> href="<?php echo base_url("Other_doc/".$rows->other_doc); ?>" data-toggle="tooltip" title="Additional document" target="blank"><i class="fa fa-paperclip text-success fa-2x"></i></a>
+      </td>
+<script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>
+         
       <?php echo "<td style='text-transform: capitalize;'>".$rows->remark."</td>";?>
+       <td><?php  $status=$rows->status;
+             if($status== 11)
+              { echo "<lable class='badge badge-success' data-toggle='tooltip' title='emp payment request Accepted'>Accept</lable>"; }
+              if($status==10)
+              {echo "<label class='badge badge-danger' data-toggle='tooltip' title='emp payment request Reject'>Reject</label>";}
+              if($status=="")
+              {
+                echo "<lable class='badge badge-primary' data-toggle='tooltip' title='emp payment request pending'>Pending</lable>";
+              } ?></td>
+
 
    <?php
    echo "</tr>";

@@ -49,14 +49,23 @@
   <div class="card-body">
     <h5 class="card-title" align="center" style="text-decoration:underline; ">Apply for Retention Bonus</h5><hr>
      <form method="post" action="<?php echo base_url().'Retention/Emp_apply'; ?>">
+       <?php foreach($data as $row)
+        {?>
       <div class="form-group row ">
         <label class="col-sm-3 form-control-lable">Employee id:</label>
-       <div class="col-sm-6"><input type="text" name="emp_id" value="" class="form-control"></div> 
+       <div class="col-sm-6"><input type="text" name="emp_id" value="<?php echo $row->indo_code;?>" class="form-control" readonly></div> 
       </div>
       <div class="form-group row">
         <label class="col-sm-3 form-control-lable">Employee name:</label>
-       <div class="col-sm-6"><input type="text" name="emp_name" value="" class="form-control">	</div>
+       <div class="col-sm-6"><input type="text" name="emp_name" value="<?php echo $row->emp_name;?>" class="form-control" readonly>	</div>
       </div>
+
+      <div class="form-group row">
+        <label class="col-sm-3 form-control-lable">Mail id:</label>
+       <div class="col-sm-6"> <input type="email" name="mail_id" value="<?php  echo $row->official_email_id;?>" class="form-control" readonly> </div>
+      </div>
+    <?php } ?>
+      
       <div class="form-group row">
         <label class="col-sm-3 form-control-lable">Retention reason:</label>
         <div class="col-sm-6"><select name="retention_reason" value=" " class="form-control" required>
@@ -68,29 +77,26 @@
            </select>
         </div>	
       </div>
-      <div class="form-group row">
-        <label class="col-sm-3 form-control-lable">Mail id:</label>
-       <div class="col-sm-6"> <input type="email" name="mail_id" value="" class="form-control">	</div>
-      </div>
+      
       <div class="form-group row">
         <label class="col-sm-3 form-control-lable">Training start date:</label>
-        <div class="col-sm-6"><input type="date" name="training_start_date" value="" class="form-control"></div>	
+        <div class="col-sm-6"><input type="date" name="training_start_date" value="" class="form-control" required></div>	
       </div>
       <div class="form-group row">
         <label class="col-sm-3 form-control-lable">Training end date:</label>
-        <div class="col-sm-6"><input type="date" name="training_end_date" value="" class="form-control"></div>	
+        <div class="col-sm-6"><input type="date" name="training_end_date" value="" class="form-control" required></div>	
       </div>
       <div class="form-group row">
         <label class="col-sm-3 form-control-lable">Installment amount:</label>
-       <div class="col-sm-6"> <input type="text" name="installment_amount" value="NULL" class="form-control" disabled><span style="font-size:15px; color:red;">*This filed fill by Team leader*</span>	</div>
+       <div class="col-sm-6"> <input type="text" name="installment_amount" value="NULL" class="form-control"  data-toggle="tooltip" title="You can not fill this field" disabled><span style="font-size:15px; color:red;">*This filed fill by Team leader*</span>	</div>
       </div>
       <div class="form-group row">
         <label class="col-sm-3 form-control-lable">Purpose of visit:</label>
-        <div class="col-sm-6"><input type="text" name="purpose_of_visit" value="" class="form-control">	</div>
+        <div class="col-sm-6"><input type="text" name="purpose_of_visit" value="" class="form-control" required>	</div>
       </div>
       <div class="form-group row">
         <label class="col-sm-3 form-control-lable">Project leader:</label>
-       <div class="col-sm-6"> <input type="text" name="project_leader" value="" class="form-control"></div>	
+       <div class="col-sm-6"> <input type="text" name="project_leader" value="" class="form-control" required></div>	
       </div>
       <div class="form-group row">
         <label class="col-sm-3 form-control-lable">Remark:</label>

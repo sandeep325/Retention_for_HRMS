@@ -36,7 +36,7 @@ if($nodata_msg!="")
    echo "</center>";
 }
   ?> -->
-	<div class="table-responsive"><table class="table" >
+	<div class="table-responsive"><table class="table" id="employee_data">
      <thead class="thead-light">
        <tr>
             <th colspan="2" style="background-color:white; border: none;"></th>
@@ -66,7 +66,7 @@ if($nodata_msg!="")
       <th scope="col">3rd Installment Claim Date</th>
       <th scope="col">4th Installment due</th>
        <th scope="col">4th Installment Claim Date</th>
-      <th scope="col">Agreement View</th>
+      <th scope="col">Agreement </th>
       </tr>
   </thead>
   <tbody>
@@ -103,7 +103,9 @@ if($nodata_msg!="")
        $final_date4=date("Y-m-d",strtotime("+6 month",$time));
             echo $final_date4;?></td>
       <td><i class="fa fa-spinner fa-spin text-success fa-2x "></i></td> <!--4th installment claim date here-->
-      <td><a href="#"><i class="fa fa-eye text-success fa-2x"></i></a></td>
+
+
+      <td><a href="#"><i class="fa fa-eye text-success fa-2x" data-toggle="tooltip" title="view agreement"></i></a></td>
    </tr>
     <?php }?>
 
@@ -111,6 +113,42 @@ if($nodata_msg!="")
 </table> </div>
 <p class="text-center"><b><i style="color:red;">*</i>If due date is on or before 10th of the month then payment will be on 25 of the same month (in salary).</b></p>
 </div>
-<center><button type="button" class="btn btn-outline-primary">Download Form &nbsp;&nbsp;<i class="fa fa-download"></i></button></center>
+
+<script >
+  function exportTableToExcel(tableID, filename = ''){
+    var downloadLink;
+    var dataType = 'application/vnd.ms-excel';
+    var tableSelect = document.getElementById(tableID);
+    var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+    
+    // Specify file name
+    filename = filename?filename+'.xls':'excel_data.xls';
+    
+    // Create download link element
+    downloadLink = document.createElement("a");
+    
+    document.body.appendChild(downloadLink);
+    
+    if(navigator.msSaveOrOpenBlob){
+        var blob = new Blob(['\ufeff', tableHTML], {
+            type: dataType
+        });
+        navigator.msSaveOrOpenBlob( blob, filename);
+    }else{
+        // Create a link to the file
+        downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+    
+        // Setting the file name
+        downloadLink.download = filename;
+        
+        //triggering the function
+        downloadLink.click();
+    }
+}
+</script>
+
+<center>
+<button type="button" onclick="exportTableToExcel('employee_data', 'Employee_retention_data')"   class="btn btn-outline-primary">Download Form &nbsp;&nbsp;<i class="fa fa-download"></i></button>
+</center>
 </body>
 </html>

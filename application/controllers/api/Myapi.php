@@ -5,6 +5,13 @@ require APPPATH .'libraries/REST_Controller.php';
 // use chriskacerguis\RestServer\RestController;
 class Myapi extends REST_Controller{
 
+	public function RetentionGetData_post($retentionid)
+	{
+		$this->load->model('Retention_bonus');
+	 $r=$this->Retention_bonus->Retention_data_get($retentionid);
+	 $this->response($r,REST_Controller::HTTP_OK);
+	}
+
     public function EmpApply_post()
     {
     	$this->load->model('Retention_bonus');
