@@ -25,7 +25,7 @@
 	</div>
 </nav>
 
-<ul class="nav flex-column">
+<ul class="nav flex-column ">
           <li class="nav-item bg-white rounded" style="border:1px blue solid;">
                     <a class="nav-link" href="#">
 
