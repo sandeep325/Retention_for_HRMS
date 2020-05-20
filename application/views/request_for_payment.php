@@ -24,6 +24,54 @@
 	</ul>
 	</div>
 </nav>
+
+<ul class="nav flex-column ">
+          <li class="nav-item bg-white rounded" style="border:1px blue solid;">
+                    <a class="nav-link" href="#">
+
+                      <span class="fas fa-tachometer-alt"> Dashboard</span>
+                    </a>
+              </li>
+              
+        <li class="nav-item bg-light rounded" style="margin-top:5px;border:1px solid #D6E9C6;">
+              <a  class="nav-link text-success"  data-toggle="collapse" href="#Menu">
+                Retention Bonus <span class="fas fa-plus"></span>
+              </a> 
+              
+              <div class="collapse" id="Menu">
+              <ul class="nav flex-column bg-white rounded" >
+
+                       <li class="nav-item"> 
+                        <?php   $ses_retention_empid=$this->session->userdata('empid');?>
+                       <a class="nav-link text-success" href="<?php echo base_url().'Retention/EmpRetention/'.$ses_retention_empid ;?>">
+                      <i class="  fas fa-file-alt"></i> Apply Form</a>
+                       </li>
+                
+                     
+                     <li class="nav-item">
+                        <a class="nav-link text-success" href="<?php echo base_url().'Retention/Emp_view/'.$ses_retention_empid;?>">  
+                        <i class="fas fa-book-reader"></i> Bonus Status</a>
+                      </li>
+
+                    <li class="nav-item"> 
+                           <a class="nav-link text-success" href="<?php echo base_url().'Retention/Team_member';?>">
+                        <i class="fas fa-users"></i> Staff Request</a>
+                     </li>
+                 
+
+                     <li class="nav-item"> 
+                        <a class="nav-link text-success" href="<?php echo base_url().'Retention/Payment_request/'.$ses_retention_empid;?>">
+                       <i class="  fas fa-rupee-sign"></i> Payment Request</a>
+                    </li>
+
+
+              </ul>
+            </div>
+
+       </li>
+ </ul>
+
+
 <?php
 $true_msg=$this->session->flashdata('true_msg');
 $false_msg=$this->session->flashdata('false_msg');
@@ -75,15 +123,15 @@ if($true_msg!="")
 
       <?php  }  ?>
       <div class="form-group row">
-        <label class="col-sm-3 form-control-lable">Attache training document:</label>
+        <label class="col-sm-3 form-control-lable">Attache training document:<span style="font-size:20px; color:red;">*</span></label>
         <div class="col-sm-6"><input type="file" name="training_doc[]" value="" class="form-control" required/></div>
       </div>
       <div class="form-group row">
-        <label class="col-sm-3 form-control-lable">EP approval:</label>
+        <label class="col-sm-3 form-control-lable">EP approval:<span style="font-size:20px; color:red;">*</span></label>
        <div class="col-sm-6"> <input type="file" name="ep_approval[]" value="" class="form-control" required/></div>	
             </div>
        <div class="form-group row">
-        <label class="col-sm-3 form-control-lable">Other&nbsp;document:<sub style="color: red;">Optional</sub></label>
+        <label class="col-sm-3 form-control-lable">Other&nbsp;document:</label>
        <div class="col-sm-6"> <input type="file" name="other_document[]" value="" class="form-control"></div>	
       </div>
       <div class="form-group row">

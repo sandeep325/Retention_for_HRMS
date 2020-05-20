@@ -1,6 +1,13 @@
 <?php
 class Retention_bonus extends CI_Model{
 
+
+  public function Retention_data_get($retentionid)
+  {
+      $query=$this->db->query("select * from emp_personal_info where  indo_code='$retentionid' ");
+        return $query->result_array();
+  }
+
   public function apply($Emp_apply_data)
 
    {
@@ -38,8 +45,10 @@ class Retention_bonus extends CI_Model{
 
     public function get_emp_retention($emp_id)
     {
-
-      $query=$this->db->query("select * from emp_apply_retention where emp_id='$emp_id' ");
+       
+      $query=$this->db->query("select emp_apply_retention.*,hr_approval_emp.agreement_upload from emp_apply_retention,hr_approval_emp 
+           where emp_apply_retention.emp_id= hr_approval_emp.emp_id and  emp_apply_retention.emp_id='$emp_id' ");
+      // $query=$this->db->query("select * from emp_apply_retention where emp_id='$emp_id' ");    //emp view...
         return $query->result_array();
 
     }
@@ -50,7 +59,11 @@ class Retention_bonus extends CI_Model{
       return $query;
     }
 
-
+public function GetUploadId($id)
+{
+  $query=$this->db->query("select * from hr_approval_emp where id ='$id' ");
+  return $query->result_array();
+}
 
 public function hr_data()
     {
@@ -97,16 +110,17 @@ public function HRget_id($ids)
 
    public function EmpsPayments_list()
    {
-    $this->db->order_by("id", "DESC");
-    $query=$this->db->get('emps_payments_list')->result_array();
+      // $this->db->order_by("id", "DESC");
+//    $query=$this->db->get('emps_payments_list')->result_array();
+    $query=$this->db->query("select emps_payments_list.*, hr_approval_emp.return_date from emps_payments_list,hr_approval_emp  where emps_payments_list.emp_id=hr_approval_emp.emp_id  order by emps_payments_list.id DESC ");
 
-        return $query;
+        return $query->result_array();
     }
 
 
    public function update_status($ids)
    {
-    $query=$this->db->query("update emps_payments_list  SET status='1' WHERE id='$ids'");    
+    $query=$this->db->query("update emps_payments_list  SET status='11' WHERE id='$ids'");    
      return $query;
 
    }
