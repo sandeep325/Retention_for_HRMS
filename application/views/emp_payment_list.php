@@ -18,12 +18,50 @@
 	<div class="collapse navbar-collapse" id="mymenu">
 	<ul class="navbar-nav ml-auto">
 		<i class="navbar-item"><a href="#" class="nav-link">Support no Gmail &nbsp;<i class="fa fa-envelope-o" style='font-size:22px'></i></a></i>
-		<i class="navbar-item"><a href="#" class="nav-link">Welcome User&nbsp;<i class="fa fa-user" style='font-size:22px'></i></a></i>
+		<i class="navbar-item"><a href="#" class="nav-link">Welcome Admin&nbsp;<i class="fa fa-user" style='font-size:22px'></i></a></i>
 		<i class="navbar-item"><a href="#" class="nav-link">Logout</a></i>
 
 	</ul>
 	</div>
 </nav>
+
+<ul class="nav flex-column">
+          <li class="nav-item bg-white rounded" style="border:1px blue solid;">
+                    <a class="nav-link" href="#">
+
+                      <span class="fas fa-tachometer-alt"> Dashboard</span>
+                    </a>
+              </li>
+              
+        <li class="nav-item bg-light rounded" style="margin-top:5px;border:1px solid #D6E9C6;">
+              <a  class="nav-link text-success"  data-toggle="collapse" href="#Menu">
+                Retention Bonus <span class="fas fa-plus"></span>
+              </a> 
+              
+              <div class="collapse" id="Menu">
+              <ul class="nav flex-column bg-white rounded" >
+
+                       <li class="nav-item"> 
+                      
+                       <a class="nav-link text-success" href="<?php echo base_url().'Retention/Retention_request';?>">
+                      <i class="fas fa-users"></i> Bonus Request</a>
+                       </li>
+                
+                    <li class="nav-item"> 
+                           <a class="nav-link text-success" href="<?php echo base_url().'Retention/Payment_list';?>">
+                        <i class=" fas fa-rupee-sign"></i> Payment Request</a>
+                     </li>
+
+
+              </ul>
+            </div>
+
+       </li>
+ </ul>
+
+
+
+
 <?php   $true_msg=$this->session->flashdata('true_msg');
         $false_msg=$this->session->flashdata('false_msg');
         $hr_accept_btn=$this->session->flashdata('hr_accept_btn');
@@ -51,7 +89,7 @@
 <div class="container  mt-3">
   <h5 class="text-center" style="text-decoration: underline;">List of Employees payments</h5>
 	
-        	<form  action="<?php echo base_url().'Retention/HrPayments_accept';?>" method="post">
+        	<form  action="<?php echo base_url().'Retention/HrPayments_action';?>" method="post">
      <div class="table-responsive">
      	<table class="table table-hover striped">
         <thead class="thead-light">
@@ -113,7 +151,7 @@ echo "<td>  <lable data-toggle='tooltip'  title='Due date'>".$fourth_installment
       <td>
         <a  <?php if($rows->training_document){?> href="<?php echo base_url("TrainingDoc/".$rows->training_document); }?>" data-toggle="tooltip"  title="Training document" target="_blank"><i class="fa fa-paperclip text-success fa-2x"></i></a>&nbsp;
         <a <?php if($rows->ep_approval){?> href="<?php echo base_url("EpApproval_files/".$rows->ep_approval); }?>" data-toggle="tooltip" title="Ep Approval" target="blank"><i class="fa fa-paperclip text-success fa-2x"></i></a>&nbsp;
-        <a <?php if($rows->other_doc){?> href="<?php echo base_url("Other_doc/".$rows->other_doc); ?>" data-toggle="tooltip" title="Additional document" target="blank"><i class="fa fa-paperclip text-success fa-2x"></i></a>
+        <a <?php if($rows->other_doc){?> href="<?php echo base_url("Other_doc/".$rows->other_doc); } ?>" data-toggle="tooltip" title="Additional document" target="blank"><i class="fa fa-paperclip text-success fa-2x"></i></a>
       </td>
 <script>
 $(document).ready(function(){
@@ -145,7 +183,7 @@ $(document).ready(function(){
   </div><br>
   <div class="form-group row">
   	<div class="col-sm-12" align="center">
-<button type="reset" name="reject" value="reject"class="btn btn-danger"><i class="fa fa-close"></i>&nbsp;Reject</button> &nbsp;&nbsp;
+<button type="submit" name="reject" value="reject"class="btn btn-danger"><i class="fa fa-close"></i>&nbsp;Reject</button> &nbsp;&nbsp;
 <button type="submit" name="Accept" value="Accept" class="btn btn-success"><i class="fa fa-check"></i>&nbsp;Accept</button></div></div>
    </form>
 </div>

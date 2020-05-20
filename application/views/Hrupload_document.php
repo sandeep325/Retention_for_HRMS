@@ -24,14 +24,51 @@
 	</ul>
 	</div>
 </nav>
+
+<ul class="nav flex-column ">
+          <li class="nav-item bg-white rounded" style="border:1px blue solid;">
+                    <a class="nav-link" href="#">
+
+                      <span class="fas fa-tachometer-alt"> Dashboard</span>
+                    </a>
+              </li>
+              
+        <li class="nav-item bg-light rounded" style="margin-top:5px;border:1px solid #D6E9C6;">
+              <a  class="nav-link text-success"  data-toggle="collapse" href="#Menu">
+                Retention Bonus <span class="fas fa-plus"></span>
+              </a> 
+              
+              <div class="collapse" id="Menu">
+              <ul class="nav flex-column bg-white rounded" >
+
+                       <li class="nav-item"> 
+                      
+                       <a class="nav-link text-success" href="<?php echo base_url().'Retention/Retention_request';?>">
+                      <i class="fas fa-users"></i> Bonus Request</a>
+                       </li>
+                
+                    <li class="nav-item"> 
+                           <a class="nav-link text-success" href="<?php echo base_url().'Retention/Payment_list';?>">
+                        <i class=" fas fa-rupee-sign"></i> Payment Request</a>
+                     </li>
+
+
+              </ul>
+            </div>
+
+       </li>
+ </ul>
+
+
+
     <h5 class="card-title" align="center" >Agreement upload here</h5><hr>
-     <div align="center" class="border border-secoundary" >
-     <form method="post" action="">
+     <div align="center" class="border border-secoundary " style="height:auto;">
+     <form  action="<?php echo base_url().'Retention/UpdateAgreement/';?>" method="post"  enctype="multipart/form-data">
         <div class="form-group">
         <div class="col-sm-6" >
         	<label for="file-upload">
        <img src="https://cdn1.iconfinder.com/data/icons/hawcons/32/699329-icon-57-document-download-128.png" data-toggle="tooltip" title="click here to upload file">
-       <input type="file" name="file-upload" id="file-upload" style="display:none;"/>
+       <input type="file" name="file-upload[]" id="file-upload" style="display:none;"/>
        </label>
        <div id="file-upload-filename" style="color:red;"></div>
 

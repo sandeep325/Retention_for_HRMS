@@ -25,17 +25,57 @@
 	</ul>
 	</div>
 </nav>
+
+<ul class="nav flex-column ">
+          <li class="nav-item bg-white rounded" style="border:1px blue solid;">
+                    <a class="nav-link" href="#">
+
+                      <span class="fas fa-tachometer-alt"> Dashboard</span>
+                    </a>
+              </li>
+              
+        <li class="nav-item bg-light rounded" style="margin-top:5px;border:1px solid #D6E9C6;">
+              <a  class="nav-link text-success"  data-toggle="collapse" href="#Menu">
+                Retention Bonus <span class="fas fa-plus"></span>
+              </a> 
+              
+              <div class="collapse" id="Menu">
+              <ul class="nav flex-column bg-white rounded" >
+
+                       <li class="nav-item"> 
+                        <?php   $ses_retention_empid=$this->session->userdata('empid');?>
+                       <a class="nav-link text-success" href="<?php echo base_url().'Retention/EmpRetention/'.$ses_retention_empid ;?>">
+                      <i class="  fas fa-file-alt"></i> Apply Form</a>
+                       </li>
+                
+                     
+                     <li class="nav-item">
+                        <a class="nav-link text-success" href="<?php echo base_url().'Retention/Emp_view/'.$ses_retention_empid;?>">  
+                        <i class="fas fa-book-reader"></i> Bonus Status</a>
+                      </li>
+
+                    <li class="nav-item"> 
+                           <a class="nav-link text-success" href="<?php echo base_url().'Retention/Team_member';?>">
+                        <i class="fas fa-users"></i> Staff Request</a>
+                     </li>
+                 
+
+                     <li class="nav-item"> 
+                        <a class="nav-link text-success" href="<?php echo base_url().'Retention/Payment_request/'.$ses_retention_empid;?>">
+                       <i class="  fas fa-rupee-sign"></i> Payment Request</a>
+                    </li>
+
+
+              </ul>
+            </div>
+
+       </li>
+ </ul>
+
+
 <div class="container  mt-3">
   <h5 class="text-center" style="text-decoration: underline;">Retention Bonus</h5>
-  <!-- <?php
-$nodata_msg=$this->session->flashdata('nodata_msg');
-if($nodata_msg!="")
-{
-  echo "<center>";
-    echo "<div  class=' mt-2 alert alert-danger alert-dismissible fade show w-50 p-3'><button type='button' class='close' data-dismiss='alert'>&times;</button>$nodata_msg</div>";
-   echo "</center>";
-}
-  ?> -->
+  
 	<div class="table-responsive"><table class="table" id="employee_data">
      <thead class="thead-light">
        <tr>
@@ -105,7 +145,9 @@ if($nodata_msg!="")
       <td><i class="fa fa-spinner fa-spin text-success fa-2x "></i></td> <!--4th installment claim date here-->
 
 
-      <td><a href="#"><i class="fa fa-eye text-success fa-2x" data-toggle="tooltip" title="view agreement"></i></a></td>
+      <td>
+        <a  <?php if($row->agreement_upload) {?> href="<?php echo base_url("HrUploaded_agreements/".$row->agreement_upload); } ?>" target="_blank"><i class="fa fa-eye text-success fa-2x" data-toggle="tooltip" title="view agreement"></i></a>
+      </td>
    </tr>
     <?php }?>
 

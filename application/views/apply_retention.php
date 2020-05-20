@@ -23,6 +23,53 @@
 	</ul>
 	</div>
 </nav>
+
+<ul class="nav flex-column ">
+          <li class="nav-item bg-white rounded" style="border:1px blue solid;">
+                    <a class="nav-link" href="#">
+
+                      <span class="fas fa-tachometer-alt"> Dashboard</span>
+                    </a>
+              </li>
+              
+        <li class="nav-item bg-light rounded" style="margin-top:5px;border:1px solid #D6E9C6;">
+              <a  class="nav-link text-success"  data-toggle="collapse" href="#Menu">
+                Retention Bonus <span class="fas fa-plus"></span>
+              </a> 
+              
+              <div class="collapse" id="Menu">
+              <ul class="nav flex-column bg-white rounded" >
+
+                       <li class="nav-item"> 
+                        <?php   $ses_retention_empid=$this->session->userdata('empid');?>
+                       <a class="nav-link text-success" href="<?php echo base_url().'Retention/EmpRetention/'.$ses_retention_empid ;?>">
+                      <i class="  fas fa-file-alt"></i> Apply Form</a>
+                       </li>
+                
+                     
+                     <li class="nav-item">
+                        <a class="nav-link text-success" href="<?php echo base_url().'Retention/Emp_view/'.$ses_retention_empid;?>">  
+                        <i class="fas fa-book-reader"></i> Bonus Status</a>
+                      </li>
+
+                    <li class="nav-item"> 
+                           <a class="nav-link text-success" href="<?php echo base_url().'Retention/Team_member';?>">
+                        <i class="fas fa-users"></i> Staff Request</a>
+                     </li>
+                 
+
+                     <li class="nav-item"> 
+                        <a class="nav-link text-success" href="<?php echo base_url().'Retention/Payment_request/'.$ses_retention_empid;?>">
+                       <i class="  fas fa-rupee-sign"></i> Payment Request</a>
+                    </li>
+
+
+              </ul>
+            </div>
+
+       </li>
+ </ul>
+
   <?php   $msg=$this->session->flashdata('msg');
         $msgf=$this->session->flashdata('msgf');
   if ($msg !="")
@@ -48,7 +95,7 @@
   </div> -->
   <div class="card-body">
     <h5 class="card-title" align="center" style="text-decoration:underline; ">Apply for Retention Bonus</h5><hr>
-     <form method="post" action="<?php echo base_url().'Retention/Emp_apply'; ?>">
+     <form method="post" action="<?php echo base_url().'Retention/Emp_apply'; ?>" autocomplete="off">
        <?php foreach($data as $row)
         {?>
       <div class="form-group row ">
@@ -67,7 +114,7 @@
     <?php } ?>
       
       <div class="form-group row">
-        <label class="col-sm-3 form-control-lable">Retention reason:</label>
+        <label class="col-sm-3 form-control-lable">Retention reason:<span style="font-size:20px; color:red;">*</span></label>
         <div class="col-sm-6"><select name="retention_reason" value=" " class="form-control" required>
 
             <option value="Training">Training</option>
@@ -79,23 +126,23 @@
       </div>
       
       <div class="form-group row">
-        <label class="col-sm-3 form-control-lable">Training start date:</label>
-        <div class="col-sm-6"><input type="date" name="training_start_date" value="" class="form-control" required></div>	
+        <label class="col-sm-3 form-control-lable">Training start date:<span style="font-size:20px; color:red;">*</span></label>
+        <div class="col-sm-6"><input type="date" name="training_start_date" min="2019-1-1" max="<?php echo date('Y-m-d');?>" value="" class="form-control" required></div>	
       </div>
       <div class="form-group row">
-        <label class="col-sm-3 form-control-lable">Training end date:</label>
-        <div class="col-sm-6"><input type="date" name="training_end_date" value="" class="form-control" required></div>	
+        <label class="col-sm-3 form-control-lable">Training end date:<span style="font-size:20px; color:red;">*</span></label>
+        <div class="col-sm-6"><input type="date" name="training_end_date" min="2019-1-1" max="<?php echo date('Y-m-d');?>" value="" class="form-control" required></div>	
       </div>
       <div class="form-group row">
         <label class="col-sm-3 form-control-lable">Installment amount:</label>
-       <div class="col-sm-6"> <input type="text" name="installment_amount" value="NULL" class="form-control"  data-toggle="tooltip" title="You can not fill this field" disabled><span style="font-size:15px; color:red;">*This filed fill by Team leader*</span>	</div>
+       <div class="col-sm-6"> <input type="text" name="installment_amount" value="NULL" class="form-control"  data-toggle="tooltip" title="You can not fill this field" disabled><span style="font-size:15px; color:red;">*To be field by team leader*</span>	</div>
       </div>
       <div class="form-group row">
-        <label class="col-sm-3 form-control-lable">Purpose of visit:</label>
+        <label class="col-sm-3 form-control-lable">Purpose of visit:<span style="font-size:20px; color:red;">*</span></label>
         <div class="col-sm-6"><input type="text" name="purpose_of_visit" value="" class="form-control" required>	</div>
       </div>
       <div class="form-group row">
-        <label class="col-sm-3 form-control-lable">Project leader:</label>
+        <label class="col-sm-3 form-control-lable">Project leader:<span style="font-size:20px; color:red;">*</span></label>
        <div class="col-sm-6"> <input type="text" name="project_leader" value="" class="form-control" required></div>	
       </div>
       <div class="form-group row">

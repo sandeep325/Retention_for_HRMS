@@ -202,12 +202,23 @@ class Myapi extends REST_Controller{
       
 
 
+public function GetIdForHrUpload_post($id)
+{
+    $this->load->model('Retention_bonus');
+    $r=$this->Retention_bonus->GetUploadId($id);
+    $this->response($r,REST_Controller::HTTP_OK);
+}
+
+
+
+
       public function HrApprovalData_post()
       {
       	$this->load->model('Retention_bonus');
        $r=$this->Retention_bonus->hr_data();
       	$this->response($r,REST_Controller::HTTP_OK);
       }
+
 
       public function UniqueIdHr_post($empid)
       {
@@ -336,12 +347,9 @@ class Myapi extends REST_Controller{
                   }
 
          }
-         
+
 
      
-
-
-
 }
 
 ?>

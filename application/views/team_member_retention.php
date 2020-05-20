@@ -19,12 +19,62 @@
 	<div class="collapse navbar-collapse" id="mymenu">
 	<ul class="navbar-nav ml-auto">
 		<i class="navbar-item"><a href="#" class="nav-link">Support no Gmail &nbsp;<i class="fa fa-envelope-o" style='font-size:22px'></i></a></i>
-		<i class="navbar-item"><a href="#" class="nav-link">Welcome User&nbsp;<i class="fa fa-user" style='font-size:22px'></i></a></i>
+		<i class="navbar-item"><a href="#" class="nav-link">Welcome Team leader&nbsp;<i class="fa fa-user" style='font-size:22px'></i></a></i>
 		<i class="navbar-item"><a href="#" class="nav-link">Logout</a></i>
 
 	</ul>
 	</div>
 </nav>
+
+<ul class="nav flex-column ">
+          <li class="nav-item bg-white rounded" style="border:1px blue solid;">
+                    <a class="nav-link" href="#">
+
+                      <span class="fas fa-tachometer-alt"> Dashboard</span>
+                    </a>
+              </li>
+              
+        <li class="nav-item bg-light rounded" style="margin-top:5px;border:1px solid #D6E9C6;">
+              <a  class="nav-link text-success"  data-toggle="collapse" href="#Menu">
+                Retention Bonus <span class="fas fa-plus"></span>
+              </a> 
+              
+              <div class="collapse" id="Menu">
+              <ul class="nav flex-column bg-white rounded" >
+
+                       <li class="nav-item"> 
+                        <?php   $ses_retention_empid=$this->session->userdata('empid');?>
+                       <a class="nav-link text-success" href="<?php echo base_url().'Retention/EmpRetention/'.$ses_retention_empid ;?>">
+                      <i class="  fas fa-file-alt"></i> Apply Form</a>
+                       </li>
+                
+                     
+                     <li class="nav-item">
+                        <a class="nav-link text-success" href="<?php echo base_url().'Retention/Emp_view/'.$ses_retention_empid;?>">  
+                        <i class="fas fa-book-reader"></i> Bonus Status</a>
+                      </li>
+
+                    <li class="nav-item"> 
+                           <a class="nav-link text-success" href="<?php echo base_url().'Retention/Team_member';?>">
+                        <i class="fas fa-users"></i> Staff Request</a>
+                     </li>
+                 
+
+                     <li class="nav-item"> 
+                        <a class="nav-link text-success" href="<?php echo base_url().'Retention/Payment_request/'.$ses_retention_empid;?>">
+                       <i class="  fas fa-rupee-sign"></i> Payment Request</a>
+                    </li>
+
+
+              </ul>
+            </div>
+
+       </li>
+ </ul>
+
+
+
+
 <?php   $msg=$this->session->flashdata('msg');
         $msgf=$this->session->flashdata('msgf');
 
@@ -97,7 +147,7 @@ if($approve_btn!="")
      <th scope="col">Start&nbsp;&nbsp;&nbsp;Date</th>
       <th scope="col">OJT&nbsp;End&nbsp;Date</th>
        <th scope="col" >Start&nbsp;&nbsp;&nbsp;Date</th>
-      <th scope="col">REturn&nbsp;Date</th>
+      <th scope="col">Return&nbsp;Date</th>
       <th scope="col">Installment Amount(INR)</th>
       <th scope="col">Purpose&nbsp;of&nbsp;visit</th>
        <th scope="col">Project Leader Name(overseas)</th>
@@ -197,7 +247,7 @@ $i++;
 </div>
  <div class="form-group row" >
           <div class="col-sm-12" align="center">
-      <button  type="reset" name="Cancel" class="btn btn-danger " value="Cancel" style="color:white;width:100px;"><i class="fa fa-close"></i>&nbsp;Cancel</button>&nbsp;&nbsp;
+      
       <button  type="submit" name="Approve" class="btn btn-success" value="save" style="color:white; width:100px;"><i class="fa fa-check"></i>&nbsp;Approve</button>
       </form>
     </div>

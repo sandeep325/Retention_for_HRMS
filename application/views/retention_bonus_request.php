@@ -18,16 +18,60 @@
 	<div class="collapse navbar-collapse" id="mymenu">
 	<ul class="navbar-nav ml-auto">
 		<i class="navbar-item"><a href="#" class="nav-link">Support no Gmail &nbsp;<i class="fa fa-envelope-o" style='font-size:22px'></i></a></i>
-		<i class="navbar-item"><a href="#" class="nav-link">Welcome User&nbsp;<i class="fa fa-user" style='font-size:22px'></i></a></i>
+		<i class="navbar-item"><a href="#" class="nav-link">Welcome Admin&nbsp;<i class="fa fa-user" style='font-size:22px'></i></a></i>
 		<i class="navbar-item"><a href="#" class="nav-link">Logout</a></i>
 
 	</ul>
 	</div>
 </nav>
+
+
+<ul class="nav flex-column ">
+          <li class="nav-item bg-white rounded" style="border:1px blue solid;">
+                    <a class="nav-link" href="#">
+
+                      <span class="fas fa-tachometer-alt"> Dashboard</span>
+                    </a>
+              </li>
+              
+        <li class="nav-item bg-light rounded" style="margin-top:5px;border:1px solid #D6E9C6;">
+              <a  class="nav-link text-success"  data-toggle="collapse" href="#Menu">
+                Retention Bonus <span class="fas fa-plus"></span>
+              </a> 
+              
+              <div class="collapse" id="Menu">
+              <ul class="nav flex-column bg-white rounded" >
+
+                       <li class="nav-item"> 
+                      
+                       <a class="nav-link text-success" href="<?php echo base_url().'Retention/Retention_request';?>">
+                      <i class="fas fa-users"></i> Bonus Request</a>
+                       </li>
+                
+                    <li class="nav-item"> 
+                           <a class="nav-link text-success" href="<?php echo base_url().'Retention/Payment_list';?>">
+                        <i class="  fas fa-rupee-sign"></i> Payment Request</a>
+                     </li>
+
+
+              </ul>
+            </div>
+
+       </li>
+ </ul>
+
+
 <?php  
+ //THIS ALERT MSG WHEN USER CLICK WITHOUT CHECK EMPS
  $hr_approve_btn=$this->session->flashdata('hr_approve_btn');
+
+ // THIS FLASH MSG FOR WHEN HR APPROVE EMPLOYEES
  $true_msg=$this->session->flashdata('true_msg');
  $false_msg=$this->session->flashdata('false_msg');
+
+//THIS FLASH MSG FOR WHEN FILE UPLOADED 
+ $true_uploaded_msg=$this->session->flashdata('true_uploaded_msg');
+ $false_uploaded_msg=$this->session->flashdata('false_uploaded_msg');
 
 if($hr_approve_btn!="")
 { ?>
@@ -50,10 +94,23 @@ if($false_msg!="")
     echo "<div  class=' mt-2 alert alert-danger alert-dismissible fade show w-50 p-3'><button type='button' class='close' data-dismiss='alert'>&times;</button>$false_msg</div>";
    echo "</center>";
 }
+if($true_uploaded_msg!="")
+{
+  echo "<center>";
+    echo "<div  class=' mt-2 alert alert-success alert-dismissible fade show w-50 p-3'><button type='button' class='close' data-dismiss='alert'>&times;</button>$true_uploaded_msg</div>";
+   echo "</center>";
+}
+
+if($false_uploaded_msg!="")
+{
+  echo "<center>";
+    echo "<div  class=' mt-2 alert alert-danger alert-dismissible fade show w-50 p-3'><button type='button' class='close' data-dismiss='alert'>&times;</button>$false_uploaded_msg</div>";
+   echo "</center>";
+}
 ?>
 <div class="container  mt-3">
   <h5 class="text-center" style="text-decoration: underline;">Retention Bonus Request</h5>
-	<form class="form-inline" action="?" method="post">
+	<!-- <form class="form-inline" action="?" method="post">
 	 <div class="form-group row ">
         <label  class="mr-sm-2">Select month:</label>
      <select name="month" class="form-control mb-2 mr-sm-2" value="--select month--">
@@ -83,7 +140,7 @@ if($false_msg!="")
      </select>
 
       <input type="submit" class="btn btn-outline-success mb-2" name="submit-data-month">
-        </div></form><br>
+        </div></form><br> -->
           <form action="<?php echo base_url().'Retention/HrEmpApproval/';?>" method="post">
      <div class="table-responsive">
      	<table class="table table-hover striped">
@@ -94,12 +151,12 @@ if($false_msg!="")
             <th scope="col">Emp&nbsp;&nbsp;Name</th>
             <th scope="col"> Start&nbsp;&nbsp;&nbsp;date</th>
             <th scope="col">Return&nbsp;&nbsp;Date</th>
-            <th scope="col">Installment&nbsp;amount (INR)</th>
-            <th scope="col">Purpose&nbsp;of visit</th>
-            <th scope="col">TL Approval</th>
-            <th scope="col">Agreement Upload</th>
-            <th scope="col">Remark</th>
-            <th scope="col">View</th>
+            <th scope="col">Installment&nbsp;amount&nbsp;(INR) </th>
+            <th scope="col">  Purpose&nbsp;of&nbsp;visit </th>
+            <th scope="col"> TL&nbsp;Approval</th>
+            <th scope="col">Agreement</th>
+            <th scope="col">&nbsp;Remark&nbsp;</th>
+          
              </tr>
         </thead>
         <tbody>
@@ -123,13 +180,17 @@ if($false_msg!="")
           
           echo "<td style='text-transform: capitalize;'>".$rows->purpose_of_visit."</td>";
           ?>
-         <td><i class="fa fa-check text-success fa-2x" data-toggle='tooltip' title='emp approve by team leader'></i></td> 
+         <td><i class="fa fa-check text-success fa-2x" data-toggle='tooltip' title='Approved by team leader'></i></td> 
           <td>
-          <a href="<?php echo base_url().'Retention/hrupload/'.$rows->emp_id;?>"><i class="fa fa-upload text-primary fa-2x" data-toggle='tooltip' title='upload greement'></i></a>
+            <?php if($rows->agreement_upload){?>
+          <a href="<?php echo base_url("HrUploaded_agreements/".$rows->agreement_upload);?>" target="_blank"><i class="fa fa-eye text-success fa-2x"  data-toggle='tooltip' title='View emp agreement'></i></a>
+            <?php } else{?>
+           <a href="<?php echo base_url().'Retention/Hrupload/'.$rows->id;?>"><i class="fa fa-upload text-primary fa-2x" data-toggle='tooltip' title='upload greement'></i></a>
+         <?php } ?>
         </td>
       
         <?php  echo  "<td>".$rows->remark."</td>"; ?>
-        <td><a <?php if($rows->agreement_upload){?> href="<?php echo base_url("HrUploaded_agreements/".$rows->agreement_upload);  }?>" target="_blank"><i class="fa fa-eye text-success fa-2x"  data-toggle='tooltip' title='View emp agreement'></i></a></td>
+
         </tr>  
           <?php
           $i++;

@@ -19,12 +19,60 @@
 	<div class="collapse navbar-collapse" id="mymenu">
 	<ul class="navbar-nav ml-auto">
 <i class="navbar-item"><a href="#" class="nav-link">Support no Gmail &nbsp;<i class="fa fa-envelope-o" style='font-size:22px'></i></a></i>
-    <i class="navbar-item"><a href="#" class="nav-link">Welcome User&nbsp;<i class="fa fa-user" style='font-size:22px'></i></a></i>
+    <i class="navbar-item"><a href="#" class="nav-link">Welcome Team leader&nbsp;<i class="fa fa-user" style='font-size:22px'></i></a></i>
     <i class="navbar-item"><a href="#" class="nav-link">Logout</a></i>
 
 	</ul>
 	</div>
 </nav>
+
+<ul class="nav flex-column ">
+          <li class="nav-item bg-white rounded" style="border:1px blue solid;">
+                    <a class="nav-link" href="#">
+
+                      <span class="fas fa-tachometer-alt"> Dashboard</span>
+                    </a>
+              </li>
+              
+        <li class="nav-item bg-light rounded" style="margin-top:5px;border:1px solid #D6E9C6;">
+              <a  class="nav-link text-success"  data-toggle="collapse" href="#Menu">
+                Retention Bonus <span class="fas fa-plus"></span>
+              </a> 
+              
+              <div class="collapse" id="Menu">
+              <ul class="nav flex-column bg-white rounded" >
+
+                       <li class="nav-item"> 
+                        <?php   $ses_retention_empid=$this->session->userdata('empid');?>
+                       <a class="nav-link text-success" href="<?php echo base_url().'Retention/EmpRetention/'.$ses_retention_empid ;?>">
+                      <i class="  fas fa-file-alt"></i> Apply Form</a>
+                       </li>
+                
+                     
+                     <li class="nav-item">
+                        <a class="nav-link text-success" href="<?php echo base_url().'Retention/Emp_view/'.$ses_retention_empid;?>">  
+                        <i class="fas fa-book-reader"></i> Bonus Status</a>
+                      </li>
+
+                    <li class="nav-item"> 
+                           <a class="nav-link text-success" href="<?php echo base_url().'Retention/Team_member';?>">
+                        <i class="fas fa-users"></i> Staff Request</a>
+                     </li>
+                 
+
+                     <li class="nav-item"> 
+                        <a class="nav-link text-success" href="<?php echo base_url().'Retention/Payment_request/'.$ses_retention_empid;?>">
+                       <i class="  fas fa-rupee-sign"></i> Payment Request</a>
+                    </li>
+
+
+              </ul>
+            </div>
+
+       </li>
+ </ul>
+
+
 
 <div class="container">
 	  <div class="row justify-content-center">  <!--card in center-->
@@ -35,7 +83,7 @@
   </div> -->
   <div class="card-body">
     <h5 class="card-title" align="center" style="text-decoration:underline; ">Retention Bonus</h5><hr>
-     <form method="post" action="<?php echo  base_url().'Retention/Tl_update_emp/'?>">
+     <form method="post" action="<?php echo  base_url().'Retention/Tl_update_emp/'?>" autocomplete="off">
        
    <?php
   foreach ($data as $rows) {
@@ -47,29 +95,32 @@
       </div>
       <div class="form-group row">
         <label class="col-sm-3 form-control-lable">Employee name:</label>
-       <div class="col-sm-6"><input type="text" name="emp_name" value="<?php echo $rows->emp_name;?>" class="form-control">	</div>
+       <div class="col-sm-6"><input type="text" name="emp_name" value="<?php echo $rows->emp_name;?>" class="form-control" readonly>	</div>
       </div>
+
+      <div class="form-group row">
+        <label class="col-sm-3 form-control-lable">Mail id:</label>
+       <div class="col-sm-6"> <input type="email" name="mail_id" value="<?php echo $rows->mail_id;?>" class="form-control" readonly>  </div>
+      </div>
+
       <div class="form-group row">
         <label class="col-sm-3 form-control-lable">Retention reason:</label>
-        <div class="col-sm-6"><input name="retention_reason" value="<?php echo $rows->retention_reason;?>" class="form-control" required>
+        <div class="col-sm-6"><input name="retention_reason" value="<?php echo $rows->retention_reason;?>" class="form-control" readonly>
 
         </div>	
       </div>
-      <div class="form-group row">
-        <label class="col-sm-3 form-control-lable">Mail id:</label>
-       <div class="col-sm-6"> <input type="email" name="mail_id" value="<?php echo $rows->mail_id;?>" class="form-control" required>	</div>
-      </div>
+      
       <div class="form-group row">
         <label class="col-sm-3 form-control-lable">Training start date:</label>
-        <div class="col-sm-6"><input type="date" name="training_start_date" value="<?php echo $rows->training_start_date;?>" class="form-control" required></div>	
+        <div class="col-sm-6"><input type="date" name="training_start_date" min="2019-1-1" max="<?php echo date('Y-m-d');?>" value="<?php echo $rows->training_start_date;?>" class="form-control" required></div>	
       </div>
       <div class="form-group row">
         <label class="col-sm-3 form-control-lable">Training end date:</label>
-        <div class="col-sm-6"><input type="date" name="training_end_date" value="<?php echo $rows->training_end_date;?>" class="form-control" required></div>	
+        <div class="col-sm-6"><input type="date" name="training_end_date" min="2019-1-1" max="<?php echo date('Y-m-d');?>" value="<?php echo $rows->training_end_date;?>" class="form-control" required></div>	
       </div>
       <div class="form-group row">
-        <label class="col-sm-3 form-control-lable">Installment amount:</label>
-       <div class="col-sm-6"> <input type="text" name="installment_amount" value="<?php echo $rows->installment_amount;?>" class="form-control" required>	</div>
+        <label class="col-sm-3 form-control-lable">Installment amount:<span style="font-size:20px; color:red;">*</span></label>
+       <div class="col-sm-6"> <input type="text" pattern="\d*" maxlength="6" name="installment_amount"  value="<?php echo $rows->installment_amount;?>" class="form-control" required>	</div>
       </div>
       <div class="form-group row">
         <label class="col-sm-3 form-control-lable">Purpose of visit:</label>
