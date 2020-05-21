@@ -327,17 +327,24 @@ public function GetIdForHrUpload_post($id)
 	 }
 
 
-    public function Empstatus_post($ids)
+
+
+   public function Empstatus_post($ids)
       {
       	 $this->load->model('Retention_bonus');
-      
-             $status_update=$this->Retention_bonus->update_status($ids);
+           $ids=$ids;
+       $emp_status=array();
+       $emp_status['status']= $this->post('status');
 
-               if($status_update)
+          if($emp_status)
+          {
+             $status_update=$this->Retention_bonus->update_status($emp_status,$ids);
+
+               if($status_update>0)
                  {
              	      $this->response([
 					  'status'=>TRUE,
-					  'message'=>'Emp accepted.'
+					  'message'=>'Emp status updated.'
 					  ],REST_Controller::HTTP_OK);
 
                   }
@@ -345,8 +352,17 @@ public function GetIdForHrUpload_post($id)
                  {
                       	$this->response("some database  problem occcured,try again.",REST_Controller::HTTP_BAD_REQUEST);
                   }
+             }
+             else
+	 		{
+	 			$this->response([
+					'status'=>FALSE,
+					'message'=>'try again'
+                           ],REST_Controller::HTTP_BAD_REQUEST);
 
-         }
+	 		}
+
+             }
 
 
      

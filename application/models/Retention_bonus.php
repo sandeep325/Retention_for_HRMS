@@ -110,20 +110,21 @@ public function HRget_id($ids)
 
    public function EmpsPayments_list()
    {
-      // $this->db->order_by("id", "DESC");
-//    $query=$this->db->get('emps_payments_list')->result_array();
+
     $query=$this->db->query("select emps_payments_list.*, hr_approval_emp.return_date from emps_payments_list,hr_approval_emp  where emps_payments_list.emp_id=hr_approval_emp.emp_id  order by emps_payments_list.id DESC ");
 
         return $query->result_array();
     }
 
 
-   public function update_status($ids)
-   {
-    $query=$this->db->query("update emps_payments_list  SET status='11' WHERE id='$ids'");    
-     return $query;
+   
 
-   }
+      public function update_status($emp_status,$ids)
+      {
+
+      $this->db->where("id",$ids);
+    return $this->db->update("emps_payments_list",$emp_status);
+  }
 
 }
 

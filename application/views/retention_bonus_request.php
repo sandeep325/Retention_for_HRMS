@@ -25,8 +25,8 @@
 	</div>
 </nav>
 
-
-<ul class="nav flex-column ">
+<section class="row">
+<ul class="nav flex-column mt-3 ml-3">
           <li class="nav-item bg-white rounded" style="border:1px blue solid;">
                     <a class="nav-link" href="#">
 
@@ -61,7 +61,11 @@
  </ul>
 
 
-<?php  
+
+<div class="container  mt-3">
+  <h5 class="text-center" style="text-decoration: underline;">Retention Bonus Request</h5>
+
+  <?php  
  //THIS ALERT MSG WHEN USER CLICK WITHOUT CHECK EMPS
  $hr_approve_btn=$this->session->flashdata('hr_approve_btn');
 
@@ -108,8 +112,6 @@ if($false_uploaded_msg!="")
    echo "</center>";
 }
 ?>
-<div class="container  mt-3">
-  <h5 class="text-center" style="text-decoration: underline;">Retention Bonus Request</h5>
 	<!-- <form class="form-inline" action="?" method="post">
 	 <div class="form-group row ">
         <label  class="mr-sm-2">Select month:</label>
@@ -202,9 +204,10 @@ if($false_uploaded_msg!="")
   </div><br>
   <div class="form-group row">
   	<div class="col-sm-12" align="center">
-<button type="reset" name="reject" class="btn btn-danger" value="reset" style="width:110px;"><i class="fa fa-close"></i>&nbsp;Reject</button> &nbsp;&nbsp;
 <button  type="submit" name="Approve" class="btn btn-success" value="save" style=" width:100px;"><i class="fa fa-check"></i>&nbsp;Approve</button></div></div>
    </form>
 </div>
+
+</section>
 </body>
 </html> 

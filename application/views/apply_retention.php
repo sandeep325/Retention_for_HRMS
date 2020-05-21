@@ -23,8 +23,8 @@
 	</ul>
 	</div>
 </nav>
-
-<ul class="nav flex-column ">
+<section class="row">
+<ul class="nav flex-column mt-3 ml-3">
           <li class="nav-item bg-white rounded" style="border:1px blue solid;">
                     <a class="nav-link" href="#">
 
@@ -41,9 +41,10 @@
               <ul class="nav flex-column bg-white rounded" >
 
                        <li class="nav-item"> 
-                        <?php   $ses_retention_empid=$this->session->userdata('empid');?>
+                        <?php $ses_retention_empid =$this->session->userdata('empid');?>
                        <a class="nav-link text-success" href="<?php echo base_url().'Retention/EmpRetention/'.$ses_retention_empid ;?>">
                       <i class="  fas fa-file-alt"></i> Apply Form</a>
+                    
                        </li>
                 
                      
@@ -70,6 +71,7 @@
        </li>
  </ul>
 
+<div class="container">
   <?php   $msg=$this->session->flashdata('msg');
         $msgf=$this->session->flashdata('msgf');
   if ($msg !="")
@@ -85,8 +87,6 @@
    echo "</center>";
   }
   ?>
-
-<div class="container">
 	  <div class="row justify-content-center">  <!--card in center-->
             <div class="col-sm-8">
 		<div class="card mt-4" style="border: 1px solid lightblue;">
@@ -127,11 +127,11 @@
       
       <div class="form-group row">
         <label class="col-sm-3 form-control-lable">Training start date:<span style="font-size:20px; color:red;">*</span></label>
-        <div class="col-sm-6"><input type="date" name="training_start_date" min="2019-1-1" max="<?php echo date('Y-m-d');?>" value="" class="form-control" required></div>	
+        <div class="col-sm-6"><input type="date" name="training_start_date" min="<?php echo date('Y-m-d',strtotime('-2 years'));?>" max="<?php echo date('Y-m-d');?>" value="" class="form-control" required></div>	
       </div>
       <div class="form-group row">
         <label class="col-sm-3 form-control-lable">Training end date:<span style="font-size:20px; color:red;">*</span></label>
-        <div class="col-sm-6"><input type="date" name="training_end_date" min="2019-1-1" max="<?php echo date('Y-m-d');?>" value="" class="form-control" required></div>	
+        <div class="col-sm-6"><input type="date" name="training_end_date" min="<?php echo date('Y-m-d',strtotime('-2 years'));?>" max="<?php echo date('Y-m-d');?>" value="" class="form-control" required></div>	
       </div>
       <div class="form-group row">
         <label class="col-sm-3 form-control-lable">Installment amount:</label>
@@ -164,4 +164,5 @@
 </div>
 </div>
 </body>
+</section>
 </html>

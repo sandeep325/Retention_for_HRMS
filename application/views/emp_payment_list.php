@@ -24,8 +24,9 @@
 	</ul>
 	</div>
 </nav>
+ <section class="row">
 
-<ul class="nav flex-column ">
+<ul class="nav flex-column mt-3 ml-3">
           <li class="nav-item bg-white rounded" style="border:1px blue solid;">
                     <a class="nav-link" href="#">
 
@@ -49,7 +50,7 @@
                 
                     <li class="nav-item"> 
                            <a class="nav-link text-success" href="<?php echo base_url().'Retention/Payment_list';?>">
-                        <i class=" fas fa-rupee-sign"></i> Payment Request</a>
+                        <i class=" fa fa-rupee"></i> Payment Request</a>
                      </li>
 
 
@@ -59,8 +60,9 @@
        </li>
  </ul>
 
-
-
+<div class="container  mt-3">
+  <h5 class="text-center" style="text-decoration: underline;">List of Employees payments</h5>
+	
 
 <?php   $true_msg=$this->session->flashdata('true_msg');
         $false_msg=$this->session->flashdata('false_msg');
@@ -86,9 +88,7 @@
  window.open('Payment_list','_self');
 </script>
 <?php } ?>
-<div class="container  mt-3">
-  <h5 class="text-center" style="text-decoration: underline;">List of Employees payments</h5>
-	
+  
         	<form  action="<?php echo base_url().'Retention/HrPayments_action';?>" method="post">
      <div class="table-responsive">
      	<table class="table table-hover striped">
@@ -187,5 +187,6 @@ $(document).ready(function(){
 <button type="submit" name="Accept" value="Accept" class="btn btn-success"><i class="fa fa-check"></i>&nbsp;Accept</button></div></div>
    </form>
 </div>
+</section>
 </body>
 </html>

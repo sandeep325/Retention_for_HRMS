@@ -24,8 +24,8 @@
 	</ul>
 	</div>
 </nav>
-
-<ul class="nav flex-column ">
+<section class="row">
+<ul class="nav flex-column mt-3 ml-3">
           <li class="nav-item bg-white rounded" style="border:1px blue solid;">
                     <a class="nav-link" href="#">
 
@@ -72,6 +72,9 @@
  </ul>
 
 
+
+<div class="container">
+
 <?php
 $true_msg=$this->session->flashdata('true_msg');
 $false_msg=$this->session->flashdata('false_msg');
@@ -89,7 +92,7 @@ if($true_msg!="")
   }
 
 ?>
-<div class="container">
+
 	  <div class="row justify-content-center">  <!--card in center-->
             <div class="col-sm-8">
 		<div class="card mt-4" style="border: 1px solid lightblue;">
@@ -153,4 +156,5 @@ if($true_msg!="")
 </div>
 </div>
 </body>
+</section>
 </html>

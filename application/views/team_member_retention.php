@@ -25,8 +25,8 @@
 	</ul>
 	</div>
 </nav>
-
-<ul class="nav flex-column ">
+<section class="row">
+<ul class="nav flex-column mt-3 ml-3">
           <li class="nav-item bg-white rounded" style="border:1px blue solid;">
                     <a class="nav-link" href="#">
 
@@ -74,6 +74,10 @@
 
 
 
+
+
+<div class="container  mt-3">
+  <h5 class="text-center" style="text-decoration: underline;"> Team Member Retention Bonus</h5>
 
 <?php   $msg=$this->session->flashdata('msg');
         $msgf=$this->session->flashdata('msgf');
@@ -124,8 +128,6 @@ if($approve_btn!="")
 <?php }
 
   ?>
-<div class="container  mt-3">
-  <h5 class="text-center" style="text-decoration: underline;"> Team Member Retention Bonus</h5>
 
   <form action="<?php echo base_url().'Retention/Tl_emp_approval/';?>" method="post">
 
@@ -245,6 +247,7 @@ $i++;
 </table> </div>
 <p class="text-center"><b>*If due date is on or before 10th of the month then payment will be on 25 of the same month (in salary).</b></p>
 </div>
+</section>
  <div class="form-group row" >
           <div class="col-sm-12" align="center">
       

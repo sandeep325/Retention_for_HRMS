@@ -24,8 +24,8 @@
 	</ul>
 	</div>
 </nav>
-
-<ul class="nav flex-column ">
+<section class="row">
+<ul class="nav flex-column mt-3 ml-3 ">
           <li class="nav-item bg-white rounded" style="border:1px blue solid;">
                     <a class="nav-link" href="#">
 
@@ -60,12 +60,12 @@
  </ul>
 
 
-
-    <h5 class="card-title" align="center" >Agreement upload here</h5><hr>
-     <div align="center" class="border border-secoundary " style="height:auto;">
+   <div class="container mt-3  text-center">
+    <h5  >Agreement upload here</h5><br>
+     <div>
      <form  action="<?php echo base_url().'Retention/UpdateAgreement/';?>" method="post"  enctype="multipart/form-data">
         <div class="form-group">
-        <div class="col-sm-6" >
+        <div class="col-sm-9" >
         	<label for="file-upload">
        <img src="https://cdn1.iconfinder.com/data/icons/hawcons/32/699329-icon-57-document-download-128.png" data-toggle="tooltip" title="click here to upload file">
        <input type="file" name="file-upload[]" id="file-upload" style="display:none;"/>
@@ -101,6 +101,7 @@ function showFileName( event ) {
        </div>
   </form>
 </div>
-
+</div>
+</section>
 </body>
 </html>

@@ -25,8 +25,8 @@
 	</ul>
 	</div>
 </nav>
-
-<ul class="nav flex-column ">
+<section class="row">
+<ul class="nav flex-column mt-3 ml-3">
           <li class="nav-item bg-white rounded" style="border:1px blue solid;">
                     <a class="nav-link" href="#">
 
@@ -188,7 +188,7 @@
     }
 }
 </script>
-
+</section>
 <center>
 <button type="button" onclick="exportTableToExcel('employee_data', 'Employee_retention_data')"   class="btn btn-outline-primary">Download Form &nbsp;&nbsp;<i class="fa fa-download"></i></button>
 </center>

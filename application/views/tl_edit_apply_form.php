@@ -25,8 +25,8 @@
 	</ul>
 	</div>
 </nav>
-
-<ul class="nav flex-column ">
+<section class="row">
+<ul class="nav flex-column mt-3 ml-3">
           <li class="nav-item bg-white rounded" style="border:1px blue solid;">
                     <a class="nav-link" href="#">
 
@@ -112,11 +112,11 @@
       
       <div class="form-group row">
         <label class="col-sm-3 form-control-lable">Training start date:</label>
-        <div class="col-sm-6"><input type="date" name="training_start_date" min="2019-1-1" max="<?php echo date('Y-m-d');?>" value="<?php echo $rows->training_start_date;?>" class="form-control" required></div>	
+        <div class="col-sm-6"><input type="date" name="training_start_date" min="<?php echo date('Y-m-d',strtotime('-2 years'));?>" max="<?php echo date('Y-m-d');?>" value="<?php echo $rows->training_start_date;?>" class="form-control" required></div>	
       </div>
       <div class="form-group row">
         <label class="col-sm-3 form-control-lable">Training end date:</label>
-        <div class="col-sm-6"><input type="date" name="training_end_date" min="2019-1-1" max="<?php echo date('Y-m-d');?>" value="<?php echo $rows->training_end_date;?>" class="form-control" required></div>	
+        <div class="col-sm-6"><input type="date" name="training_end_date" min="<?php echo date('Y-m-d',strtotime('-2 years'));?>" max="<?php echo date('Y-m-d');?>" value="<?php echo $rows->training_end_date;?>" class="form-control" required></div>	
       </div>
       <div class="form-group row">
         <label class="col-sm-3 form-control-lable">Installment amount:<span style="font-size:20px; color:red;">*</span></label>
@@ -150,4 +150,5 @@
 </div>
 </div>
 </body>
+</section>
 </html>
