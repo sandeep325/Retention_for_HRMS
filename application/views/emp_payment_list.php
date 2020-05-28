@@ -103,7 +103,9 @@
             <th scope="col">&nbsp;2nd &nbsp;Installment&nbsp;</th>
             <th scope="col">&nbsp;3rd &nbsp;Installment&nbsp;</th>
             <th scope="col">&nbsp;4th &nbsp;Installment&nbsp;</th>
-            <th scope="col">View Attachments</th>
+            <th scope="col">Training Document</th>
+            <th scope="col">EP Approval</th>
+            <th scope="col">Other Document</th>
             <th scope="col"> Remark </th>
              <th scope="col">Status</th>
             
@@ -117,11 +119,16 @@
     echo "<tr>";
     ?>
     <td>
+      <!-- <?php   $status=$rows->status; if($status!=""){echo 'checked disabled';}?> -->
+             <?php   $status=$rows->status; if($status!=""){
+               echo "<b>".$i.".</b>";
+             }else {?>  
               <div class="custom-control custom-checkbox">
                   <input type="checkbox" name= "ids[]" class="custom-control-input" id="<?php echo $id=$rows->id;?>" value="<?php echo $id;?>" 
-                      <?php   $status=$rows->status; if($status!=""){echo 'checked disabled';}?> />
-                  <label class="custom-control-label" for="<?php echo $id=$rows->id;?>"><?php echo $i;?></label>
+                       />
+                  <label class="custom-control-label" for="<?php echo $id=$rows->id;?>"><?php echo "<b>".$i."</b>";?></label>
               </div>
+            <?php }?>
             </td>
     <?php
     echo "<td>".$rows->emp_id."</td>";
@@ -130,27 +137,33 @@
     echo "<td style='text-transform: capitalize;'>".$rows->installment_amount."</td>";
     $fstdate=$rows->return_date;
           $date = strtotime($fstdate);
-  $fst_installment = date("Y-m-d", strtotime("+6 month", $date));
+  $fst_installment = date("d-m-Y", strtotime("+6 month", $date));
 
-  echo "<td> <lable data-toggle='tooltip'  title='Due date'>".$fst_installment."<br></lable>/<lable data-toggle='tooltip' title='claim date'>YY-mm-dd</lable> </td>";
+  echo "<td> <lable data-toggle='tooltip'  title='Due date'>".$fst_installment."<br></lable>/<lable data-toggle='tooltip' title='claim date'>dd-mm-YY</lable> </td>";
 
    $date= strtotime($fst_installment);
-   $sec_installment=date("Y-m-d",strtotime("+6month",$date));
-  echo "<td>  <lable data-toggle='tooltip'  title='Due date'>".$sec_installment."<br></lable>/<lable data-toggle='tooltip' title='claim date'>YY-mm-dd</lable> </td>";
+   $sec_installment=date("d-m-Y",strtotime("+6month",$date));
+  echo "<td>  <lable data-toggle='tooltip'  title='Due date'>".$sec_installment."<br></lable>/<lable data-toggle='tooltip' title='claim date'>dd-mm-YY</lable> </td>";
 
 $date=strtotime($sec_installment);
-$third_installment= date("Y-m-d",strtotime("+6month",$date));
-echo "<td> <lable data-toggle='tooltip'  title='Due date'>".$third_installment."<br></lable>/<lable data-toggle='tooltip' title='claim date'>YY-mm-dd</lable> </td>";
+$third_installment= date("d-m-Y",strtotime("+6month",$date));
+echo "<td> <lable data-toggle='tooltip'  title='Due date'>".$third_installment."<br></lable>/<lable data-toggle='tooltip' title='claim date'>dd-mm-YY</lable> </td>";
 
 $date=strtotime($third_installment);
-$fourth_installment=date("Y-m-d",strtotime("+6month",$date));
+$fourth_installment=date("d-m-Y",strtotime("+6month",$date));
 echo "<td>  <lable data-toggle='tooltip'  title='Due date'>".$fourth_installment."<br></lable>/<lable data-toggle='tooltip' title='claim date'>YY-mm-dd</lable> </td>";
   ?>
     
     
       <td>
-        <a  <?php if($rows->training_document){?> href="<?php echo base_url("TrainingDoc/".$rows->training_document); }?>" data-toggle="tooltip"  title="Training document" target="_blank"><i class="fa fa-paperclip text-success fa-2x"></i></a>&nbsp;
-        <a <?php if($rows->ep_approval){?> href="<?php echo base_url("EpApproval_files/".$rows->ep_approval); }?>" data-toggle="tooltip" title="Ep Approval" target="blank"><i class="fa fa-paperclip text-success fa-2x"></i></a>&nbsp;
+        <a  <?php if($rows->training_document){?> href="<?php echo base_url("TrainingDoc/".$rows->training_document); }?>" data-toggle="tooltip"  title="Training document" target="_blank"><i class="fa fa-paperclip text-success fa-2x"></i></a>
+      </td>
+
+      <td>
+        <a <?php if($rows->ep_approval){?> href="<?php echo base_url("EpApproval_files/".$rows->ep_approval); }?>" data-toggle="tooltip" title="Ep Approval" target="blank"><i class="fa fa-paperclip text-success fa-2x"></i></a>
+      </td>
+
+      <td>
         <a <?php if($rows->other_doc){?> href="<?php echo base_url("Other_doc/".$rows->other_doc); } ?>" data-toggle="tooltip" title="Additional document" target="blank"><i class="fa fa-paperclip text-success fa-2x"></i></a>
       </td>
 <script>

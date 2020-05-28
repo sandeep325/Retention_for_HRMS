@@ -129,6 +129,41 @@ if($approve_btn!="")
 
   ?>
 
+    <form class="form-inline" action="<?php echo base_url().'Retention/TLFilter_year_month'?>" method="post">
+   <div class="form-group row ">
+        <label  class="mr-sm-2">Select month:</label>
+     <select name="month" class="form-control mb-2 mr-sm-2" value="" required="true"   oninput="(function(e){e.setCustomValidity(''); return !e.validity.valid && e.setCustomValidity(' ')})(this)" oninvalid="this.setCustomValidity('please select the month')">
+        <option value="">--select month--</option>
+        <option value="01">January</option>
+        <option value="02">February</option>
+        <option value="03">March</option>
+        <option value="04">April</option>
+        <option value="05">May</option>
+        <option value="06">June</option>
+        <option value="07">July</option>
+        <option value="08">August</option>
+        <option value="09">September</option>
+        <option value="10">October</option>
+        <option value="11">November</option>
+        <option value="12">December</option>
+     </select>
+
+
+   <label class="mr-sm-2">Select year:</label>
+     <select name="year" class="form-control mb-2 mr-sm-2" value="" required="true"  oninput="(function(e){e.setCustomValidity(''); return !e.validity.valid && e.setCustomValidity(' ')})(this)" oninvalid="this.setCustomValidity('please select the year')">
+      <option value="">--select year--</option>
+        <option value="<?php echo date('Y');?>"><?php echo date('Y');?></option>
+        <option value="<?php echo date('Y',strtotime('-1 years'));?>"><?php echo date('Y',strtotime('-1 years'));?></option>
+        <option value="<?php echo date('Y',strtotime('-2 years'));?>"><?php echo date('Y',strtotime('-2 years'));?></option>
+        <option value="<?php echo date('Y',strtotime('-3 years'));?>"><?php echo date('Y',strtotime('-3 years'));?></option>
+
+
+     </select>
+
+      <input type="submit" class="btn btn-outline-success mb-2" name="month_year_btn" value="submit">
+        </div></form><br>
+
+
   <form action="<?php echo base_url().'Retention/Tl_emp_approval/';?>" method="post">
 
 	<div class="table-responsive"><table class="table table-hover striped">
@@ -166,7 +201,7 @@ if($approve_btn!="")
       </tr>
   </thead>
   <tbody>
-    
+    <?php if($data>0 and $data !=400){?>
     <?php
   $i=1;
   foreach ($data as $rows) {
@@ -181,10 +216,10 @@ if($approve_btn!="")
     <?php
     echo "<td>".$rows->emp_id."</td>";
     echo "<td style='text-transform: capitalize;'>".$rows->emp_name."</td>";
-    echo "<td>".$rows->training_start_date."</td>";
-    echo "<td>".$rows->training_end_date."</td>";
-    echo "<td>".$rows->training_start_date."</td>";
-    echo "<td>".$rows->training_end_date."</td>";
+    echo "<td>".date('d-m-Y',strtotime($rows->training_start_date))."</td>";
+    echo "<td>".date('d-m-Y',strtotime($rows->training_end_date))."</td>";
+    echo "<td>".date('d-m-Y',strtotime($rows->training_start_date))."</td>";
+    echo "<td>".date('d-m-Y',strtotime($rows->training_end_date))."</td>";
     echo "<td>".$rows->installment_amount."</td>";
     echo "<td style='text-transform: capitalize;'>".$rows->purpose_of_visit."</td>";
     echo "<td style='text-transform: capitalize;'>".$rows->project_leader."</td>";
@@ -193,7 +228,7 @@ if($approve_btn!="")
        $end_date = $rows->training_end_date;
        // $end_date= date("Y-m-d")
       $time = strtotime( $end_date);
-  $final_date1 = date("Y-m-d", strtotime("+6 month", $time));
+  $final_date1 = date("d-m-Y", strtotime("+6 month", $time));
    echo $final_date1;
    echo"</td>";
  
@@ -201,7 +236,7 @@ if($approve_btn!="")
     
      echo "<td>";
       $time = strtotime($final_date1);
-  $final_date2 = date("Y-m-d", strtotime("+6 month", $time));
+  $final_date2 = date("d-m-Y", strtotime("+6 month", $time));
    echo $final_date2;
  echo"</td>";
 
@@ -210,7 +245,7 @@ if($approve_btn!="")
 
     echo "<td>";
       $time = strtotime($final_date2);
-  $final_date3 = date("Y-m-d", strtotime("+6 month", $time));
+  $final_date3 = date("d-m-Y", strtotime("+6 month", $time));
    echo $final_date3;
  echo"</td>";
 
@@ -218,7 +253,7 @@ if($approve_btn!="")
 
   echo "<td>";
       $time = strtotime($final_date3);
-  $final_date4 = date("Y-m-d", strtotime("+6 month", $time));
+  $final_date4 = date("d-m-Y", strtotime("+6 month", $time));
    echo $final_date4;
  echo"</td>";
 
@@ -237,8 +272,25 @@ if($approve_btn!="")
 <?php
 echo "</tr>";
 $i++;
-   }
-    ?>
+   } // FOREACH END
+ } //IF END
+ 
+
+  else
+        {
+          echo"<tr>";
+          echo"<td></td>";
+          echo"<td colspan='3'></td>";
+
+          echo"<td colspan='7' ><b class='text-danger' align='center'>No data found !</b></td>";
+          echo"<td colspan='4' ><b class='text-danger' align='center'>No data found !</b></td>";
+
+          echo"</tr>";
+        }
+
+          ?>
+
+ 
       
     
     

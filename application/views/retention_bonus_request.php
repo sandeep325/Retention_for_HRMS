@@ -112,11 +112,11 @@ if($false_uploaded_msg!="")
    echo "</center>";
 }
 ?>
-	<!-- <form class="form-inline" action="?" method="post">
+	<form class="form-inline" action="<?php echo base_url().'Retention/year_month_Retention_filter'?>" method="post">
 	 <div class="form-group row ">
         <label  class="mr-sm-2">Select month:</label>
-     <select name="month" class="form-control mb-2 mr-sm-2" value="--select month--">
-        <option value="all">--All employees--</option>
+     <select name="month" class="form-control mb-2 mr-sm-2" value="" required="true"   oninput="(function(e){e.setCustomValidity(''); return !e.validity.valid && e.setCustomValidity(' ')})(this)" oninvalid="this.setCustomValidity('please select the month')">
+        <option value="">--select month--</option>
         <option value="01">January</option>
         <option value="02">February</option>
         <option value="03">March</option>
@@ -133,16 +133,20 @@ if($false_uploaded_msg!="")
 
 
    <label class="mr-sm-2">Select year:</label>
-     <select name="month" class="form-control mb-2 mr-sm-2" value="--select year--">
-        <option value="01">2020</option>
-        <option value="02">2019</option>
-        <option value="03">2018</option>
-        <option value="04">2017</option>
-        <option value="05">2016</option>
+     <select name="year" class="form-control mb-2 mr-sm-2" value="" required="true"  oninput="(function(e){e.setCustomValidity(''); return !e.validity.valid && e.setCustomValidity(' ')})(this)" oninvalid="this.setCustomValidity('please select the year')">
+      <option value="">--select year--</option>
+        <option value="<?php echo date('Y');?>"><?php echo date('Y');?></option>
+        <option value="<?php echo date('Y',strtotime('-1 years'));?>"><?php echo date('Y',strtotime('-1 years'));?></option>
+        <option value="<?php echo date('Y',strtotime('-2 years'));?>"><?php echo date('Y',strtotime('-2 years'));?></option>
+        <option value="<?php echo date('Y',strtotime('-3 years'));?>"><?php echo date('Y',strtotime('-3 years'));?></option>
+
+
      </select>
 
-      <input type="submit" class="btn btn-outline-success mb-2" name="submit-data-month">
-        </div></form><br> -->
+      <input type="submit" class="btn btn-outline-success mb-2" name="month_year_btn" value="submit">
+        </div></form><br>
+
+
           <form action="<?php echo base_url().'Retention/HrEmpApproval/';?>" method="post">
      <div class="table-responsive">
      	<table class="table table-hover striped">
@@ -162,6 +166,8 @@ if($false_uploaded_msg!="")
              </tr>
         </thead>
         <tbody>
+      <?php if($data>0 and $data !=400){?>
+
           <?php
           $i=1;
           foreach ($data as $rows) {
@@ -176,8 +182,8 @@ if($false_uploaded_msg!="")
             <?php
           echo "<td>".$rows->emp_id."</td>";
           echo "<td style='text-transform: capitalize;'>".$rows->emp_name."</td>";
-          echo "<td>".$rows->start_date."</td>";
-          echo "<td>".$rows->return_date."</td>";
+          echo "<td>".date('d-m-Y',strtotime($rows->start_date))."</td>";
+          echo "<td>".date('d-m-Y',strtotime($rows->return_date))."</td>";
           echo "<td>".$rows->installment_amount."</td>";
           
           echo "<td style='text-transform: capitalize;'>".$rows->purpose_of_visit."</td>";
@@ -185,7 +191,7 @@ if($false_uploaded_msg!="")
          <td><i class="fa fa-check text-success fa-2x" data-toggle='tooltip' title='Approved by team leader'></i></td> 
           <td>
             <?php if($rows->agreement_upload){?>
-          <a href="<?php echo base_url("HrUploaded_agreements/".$rows->agreement_upload);?>" target="_blank"><i class="fa fa-eye text-success fa-2x"  data-toggle='tooltip' title='View emp agreement'></i></a>
+          <a href="<?php echo base_url("HrUploaded_agreements/".$rows->agreement_upload);?>" target="_blank"><i class="fa fa-paperclip text-success fa-2x text-success fa-2x"  data-toggle='tooltip' title='View emp agreement'></i></a>
             <?php } else{?>
            <a href="<?php echo base_url().'Retention/Hrupload/'.$rows->id;?>"><i class="fa fa-upload text-primary fa-2x" data-toggle='tooltip' title='upload greement'></i></a>
          <?php } ?>
@@ -196,8 +202,21 @@ if($false_uploaded_msg!="")
         </tr>  
           <?php
           $i++;
-          }
+          }//foreach END
+
+        }//if end
+        else
+        {
+          echo"<tr>";
+          echo"<td></td>";
+          echo"<td colspan='2'></td>";
+
+          echo"<td colspan='5' ><b class='text-danger' align='center'>No data found !</b></td>";
+          echo"</tr>";
+        }
+
           ?>
+        
         </tbody>
       </table>
     

@@ -116,10 +116,10 @@
     <tr>
       <td><?php echo $row->emp_id;?></td>
       <td style='text-transform: capitalize;'><?php echo $row->emp_name;?></td>
-      <td><?php echo $row->training_start_date;?></td>
-      <td><?php echo $row->training_end_date;?></td>
-      <td><?php echo $row->training_start_date;?></td>
-      <td><?php echo $row->training_end_date;?></td>
+      <td><?php echo date("d-m-Y",strtotime($row->training_start_date));?></td>
+      <td><?php echo date("d-m-Y",strtotime($row->training_end_date));?></td>
+      <td><?php echo date("d-m-Y",strtotime($row->training_start_date));?></td>
+      <td><?php echo date("d-m-Y",strtotime($row->training_end_date));?></td>
       <td><?php echo $row->installment_amount;?></td>
       <td style='text-transform: capitalize;'><?php echo $row->purpose_of_visit;?></td>
       <td style='text-transform: capitalize;'><?php echo $row->project_leader;?></td>
@@ -127,27 +127,33 @@
        $end_date = $row->training_end_date;
        // $end_date= date("Y-m-d")
       $time = strtotime( $end_date);
-  $final_date1 = date("Y-m-d", strtotime("+6 month", $time));
+  $final_date1 = date("d-m-Y", strtotime("+6 month", $time));
    ?>
       <td><?php echo $final_date1;?></td>
       <td><i class="fa fa-spinner fa-spin text-success fa-2x "></i></td>  <!--1st installment claim date here-->
       <td><?php $time=strtotime($final_date1);
-       $final_date2=date("Y-m-d",strtotime("+6 month",$time));
+       $final_date2=date("d-m-Y",strtotime("+6 month",$time));
             echo $final_date2;?></td>
       <td><i class="fa fa-spinner fa-spin text-success fa-2x "></i></td><!--2nd installment claim date here-->
        <td><?php $time=strtotime($final_date2);
-       $final_date3=date("Y-m-d",strtotime("+6 month",$time));
+       $final_date3=date("d-m-Y",strtotime("+6 month",$time));
             echo $final_date3;?></td>
       <td><i class="fa fa-spinner fa-spin text-success fa-2x "></i></td> <!--3rd installment claim date here-->
          <td><?php $time=strtotime($final_date3);
-       $final_date4=date("Y-m-d",strtotime("+6 month",$time));
+       $final_date4=date("d-m-Y",strtotime("+6 month",$time));
             echo $final_date4;?></td>
       <td><i class="fa fa-spinner fa-spin text-success fa-2x "></i></td> <!--4th installment claim date here-->
 
 
       <td>
-        <a  <?php if($row->agreement_upload) {?> href="<?php echo base_url("HrUploaded_agreements/".$row->agreement_upload); } ?>" target="_blank"><i class="fa fa-eye text-success fa-2x" data-toggle="tooltip" title="view agreement"></i></a>
+        <center>
+        <?php if($row->agreement_upload) {?>
+        <a href="<?php echo base_url("HrUploaded_agreements/".$row->agreement_upload);  ?>" target="_blank"><i class="fa fa-paperclip text-success fa-2x" data-toggle="tooltip" title="view agreement"></i></a>
+       <?php }else { echo "_____";}?>
+       </center>
       </td>
+
+
    </tr>
     <?php }?>
 
@@ -156,7 +162,9 @@
 <p class="text-center"><b><i style="color:red;">*</i>If due date is on or before 10th of the month then payment will be on 25 of the same month (in salary).</b></p>
 </div>
 
-<script >
+
+<!-- FOR DOWNLOAD -->
+<script >  
   function exportTableToExcel(tableID, filename = ''){
     var downloadLink;
     var dataType = 'application/vnd.ms-excel';

@@ -75,7 +75,7 @@ public function Emp_apply()
 				  // redirect("Retention/emp_view?msg=success");
                 $ses_retention_empid=$this->session->userdata('empid');
 				
-				 $this->session->set_flashdata('msg','You are apply  successfully');
+				 $this->session->set_flashdata('msg',' Request applied successfully');
                 // redirect(base_url().'Retention/EmpRetention');
                  redirect("Retention/EmpRetention/$ses_retention_empid");
 
@@ -106,30 +106,41 @@ public function Emp_apply()
         public function Team_member()
 	    {
 		
-
-		//$this->load->model('api_model');
-		//$result['data']=$this->api_model->show_entry();
 		
 		 $data_user = callAPI('POST',base_url('api/Myapi/TlApproval'),0);
           $result['data']=json_decode($data_user); 
           //print_r($result); die;
 
 	    $this->load->view('team_member_retention',$result);
-	    
-
-
-
-
 	     }
-	     // public function TlEdit_btn()
-	     // {
-
-      //        $emp_data= callAPI('GET',base_url('api/Myapi/UniqueEmpid'),0);
-      //        $result['data']=json_decode($emp_data); 
-	     // 	$this->load->view('team_member_retention',$result);
-	     // }
 
 
+
+       public function TLFilter_year_month()
+   {
+      if ($this->input->post('month_year_btn'))
+       {
+       $filter_month=$this->input->post('month');
+       $filter_year=$this->input->post('year');
+       $retention_filter_data = callAPI('POST',base_url('api/Myapi/TlDateFilter/'.$filter_year.'/'.$filter_month),0);
+
+       $result['data']=json_decode($retention_filter_data);
+       // print_r($result); die;
+       
+       if($result!=0)
+       {
+
+      $this->load->view('team_member_retention',$result);
+
+       }
+       
+       
+ 
+     }
+   }
+
+     
+ // ==================================================================================
          
 	     public function Tlemp_edit($empid)
 	     {
@@ -242,7 +253,6 @@ public function Emp_apply()
 					 $result= callAPI('POST',base_url('/api/Myapi/Tlapproved'),$post_array);
          	}
           
-            	 // $emp_data= callAPI('POST',base_url('/api/Myapi/Tlapproved/'),$emps);
            
                	$insert=json_decode($result);
 
@@ -251,7 +261,7 @@ public function Emp_apply()
   
             if($insert>0)
             {
-            $this->session->set_flashdata('approve_msgt','Successfully Approve.');
+            $this->session->set_flashdata('approve_msgt','Successfully Approved.');
                             redirect(base_url().'Retention/Team_member');
             }
            else
@@ -298,6 +308,30 @@ public function Emp_apply()
           // print_r($result); die;
 	   $this->load->view('retention_bonus_request',$result);
 	}
+
+
+
+  public function year_month_Retention_filter()
+   {
+      if ($this->input->post('month_year_btn'))
+       {
+       $filter_month=$this->input->post('month');
+       $filter_year=$this->input->post('year');
+       $retention_filter_data = callAPI('POST',base_url('api/Myapi/HrRetentionFilterDate/'.$filter_year.'/'.$filter_month),0);
+
+       $result['data']=json_decode($retention_filter_data);
+       // print_r($result); die;
+       
+       if($result!=0)
+       {
+       $this->load->view('retention_bonus_request',$result);
+
+       }
+       
+       
+ 
+     }
+   }
 //================================================================================================//
 public function Hrupload($empupload_id)
 {
@@ -485,8 +519,7 @@ public function HrEmpApproval()
                           // print_r($ids); die;
                             foreach($ids as $dat)
                                {
-                                // echo $dat['id'];
-                                // echo $dat['emp_id'];
+
                                  $userdata =[ 'key'         => API_KEY,
                                                'id'    =>  $dat['id'],
                                               'emp_id'   =>  $dat['emp_id']
@@ -574,7 +607,7 @@ public function HrEmpApproval()
                         {
                           
                          $ses_emp_id=$this->session->userdata('emp_id');
-                        $this->session->set_flashdata('true_msg',' Payment request successfully submit to HR.');
+                        $this->session->set_flashdata('true_msg',' Payment request successfully submited.');
                             // redirect(base_url().'Retention/Payment_request/$ses_emp_id');
                          redirect("Retention/Payment_request/$ses_emp_id");
                           
@@ -604,51 +637,6 @@ public function HrEmpApproval()
 
 
 //=========================================================================================================//
-
-// public function HrPayments_action()
-//    {
-//    if($this->input->post('Accept'))
-//    {
-
-//     $ids=$this->input->post('ids');
-//     // print_r($ids);
-//     if($ids)
-//     {
-//                  for($i=0; $i<sizeof($ids); $i++)
-//                     {
-//                      $uni_ids=$ids[$i];
-//                      // print_r($uni_ids);
-
-//                        $emp_Uids = callAPI('POST',base_url('/api/Myapi/Empstatus/'.$uni_ids),0);
-//                      }
-//                        $result=json_decode($emp_Uids);
-//                 if($result>0)
-//                   {
-//                  $this->session->set_flashdata('true_msg','Payment request accept successfully.');
-//                     redirect("Retention/Payment_list");
-//                      }
-//                 else
-//                  {
-//                     $this->session->set_flashdata('false_msg','try again');
-          
-//                   redirect("Retention/Payment_list");
-
-//                   }
-
-//         }
-//         else
-//         {
-//             $this->session->set_flashdata('hr_accept_btn','Please select the employees.');
-//          redirect(base_url().'Retention/Payment_list');
-//         } // checkbox post id check END
-
-
-//    } //ACCEPT BTN CLOSE
-
-//    } //THIS METHOD   END
-
-     
-//=============================================================//
    public function HrPayments_action()
    {
    if($this->input->post('Accept'))
@@ -670,7 +658,7 @@ public function HrEmpApproval()
                        $result=json_decode($emp_Uids);
                 if($result>0)
                   {
-                 $this->session->set_flashdata('true_msg','Payment request accept successfully.');
+                 $this->session->set_flashdata('true_msg','Payment request accepted successfully.');
                     redirect("Retention/Payment_list");
                      }
                 else
@@ -710,7 +698,7 @@ if($this->input->post('reject'))
                        $result=json_decode($emp_Uids);
                 if($result>0)
                   {
-                 $this->session->set_flashdata('true_msg','Payment request successfully  rejected.');
+                 $this->session->set_flashdata('true_msg','Payment request rejected.');
                     redirect("Retention/Payment_list");
                      }
                 else
@@ -728,7 +716,7 @@ if($this->input->post('reject'))
          redirect(base_url().'Retention/Payment_list');
         } // checkbox post id check END
 
-}
+  } // REJECT BTN END
 	} //THIS METHOD   END
 }
 ?>

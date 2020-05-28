@@ -60,6 +60,8 @@ class Myapi extends REST_Controller{
 	 
 }
 
+// =======================================================================================================
+
   	 public function TlApproval_post()
 	 {
 	 
@@ -69,6 +71,21 @@ class Myapi extends REST_Controller{
 
 	 }
 
+
+public function TlDateFilter_post($year,$month)
+{
+  $this->load->model('Retention_bonus');
+  $r=$this->Retention_bonus->TLFilter_MonthYear($year,$month);
+ if($r !=0)
+       {
+        $this->response($r,REST_Controller::HTTP_OK);
+        }
+        else
+         {
+          $this->response(REST_Controller::HTTP_BAD_REQUEST);
+
+         }
+}
 
 
 	 public function UniqueEmpid_post($empid)
@@ -200,7 +217,7 @@ class Myapi extends REST_Controller{
 	 		}
            }  
       
-
+// ============================================================================================//
 
 public function GetIdForHrUpload_post($id)
 {
@@ -218,6 +235,24 @@ public function GetIdForHrUpload_post($id)
        $r=$this->Retention_bonus->hr_data();
       	$this->response($r,REST_Controller::HTTP_OK);
       }
+
+   
+    public function HrRetentionFilterDate_post($year,$month)
+      {
+
+        $this->load->model('Retention_bonus');
+       $r=$this->Retention_bonus->Retentionfilter_MonthYear($year,$month);
+       if($r !=0)
+       {
+      	$this->response($r,REST_Controller::HTTP_OK);
+      	}
+      	else
+      	 {
+      	 	$this->response(REST_Controller::HTTP_BAD_REQUEST);
+
+      	 }
+
+       }
 
 
       public function UniqueIdHr_post($empid)
@@ -266,6 +301,7 @@ public function GetIdForHrUpload_post($id)
 
 	 		}
       }
+   // ================================================================================================== 
 
       public function DataforPaymentRequest_post($id)
       {

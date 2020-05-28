@@ -15,13 +15,30 @@ class Retention_bonus extends CI_Model{
       return $query;
    }
 
+// ====================================================
 
- public function tl_approval_get()
+  public function tl_approval_get()
       {
         $this->db->order_by("id", "DESC");
       $tl_data = $this->db->get('emp_apply_retention')->result_array();// select data
          return $tl_data;
       }
+
+
+ public function TLFilter_MonthYear($year,$month)
+ {
+
+
+$query=$this->db->query("select * from emp_apply_retention where MONTH(training_end_date) = $month AND
+      YEAR(training_end_date) = $year ");
+
+      $r=$this->db->affected_rows();
+     if($r>0)
+     {
+           return $query->result_array();
+     }
+ }
+
 
 
     public function unique_empid($empid)
@@ -71,6 +88,19 @@ public function hr_data()
     $query=$this->db->get('hr_approval_emp');
 
         return $query->result_array();
+    }
+
+
+    public function Retentionfilter_MonthYear($year,$month)
+    {
+       $query=$this->db->query("select * from hr_approval_emp where MONTH(return_date) = $month AND
+      YEAR(return_date) = $year ");
+
+      $r=$this->db->affected_rows();
+     if($r>0)
+     {
+           return $query->result_array();
+     }
     }
 
 public function HRget_id($ids)
